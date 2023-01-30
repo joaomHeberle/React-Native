@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Plaaula",
+    "slug": "Plaaula",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.plaaula",
+      "googleServicesFile": "./google-services.json"
+    },"ios": {
+      "googleServicesFile": "./GoogleService-Info.plist"
+    }, "plugins": [
+      "@react-native-firebase/app"
+      
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dada7cfd-1ce8-4995-90b5-1cc726f15aee"
+      }
+    }
+  }
+}

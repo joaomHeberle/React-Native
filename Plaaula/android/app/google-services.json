@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "849792538515",
+    "project_id": "planejartcc-9ba2e",
+    "storage_bucket": "planejartcc-9ba2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849792538515:android:d1b564aff6ebd39411ba66",
+        "android_client_info": {
+          "package_name": "com.plaaula"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849792538515-k5cqhcl1ig5bofih55cqcmv5a4eg6f3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANng-AjKG7GT0AJJbAvGRhdttc0szlmVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849792538515-k5cqhcl1ig5bofih55cqcmv5a4eg6f3f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "849792538515-odeg1siht7s2a3mhg1ng6tthe2s9490t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.PlanejarApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
