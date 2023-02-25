@@ -2,3 +2,7 @@ yarn start ou npx expo start --dev-client
 npx expo run:android
 com.plaaula
 npx cross-env EAS_NO_VCS=1 eas build
+
+
+
+

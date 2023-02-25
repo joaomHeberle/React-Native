@@ -4,26 +4,50 @@ import { Input } from '../../Componentes/Input';
 import { cadProfSchema } from '../../assets/ValidacaoSchema'
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CadastrarProfessor } from '../../Banco/Cadastros';
+import { CadastrarAtividade, CadastrarProfessor } from '../../Banco/Cadastros';
+import { UserContext } from "../../assets/contexts/Context";
 
 export default function CadAula({navigation}) {
+    const {id}= React.useContext(UserContext);
+
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(cadProfSchema)
     });
+    
     function handleCadProf(data) {
               CadastrarProfessor(data.email,data.senha)
               navigation.navigate('Home');
     }
+    function handleCadAtiTest(){
+        const Dados={
+            titulo:"cs",
+            isPublic:true,
+            foto:"regina",
+            descricao:"",
+            Componente:"",
+            ano:"",
+            objetosConhecimento:"",
+            habilidades:"",
+            createdAt:new Date(), 
+          }
+        CadastrarAtividade(id,Dados)
+    }
     return (
-        <View flex={1} bgColor="violet.26">
 
+        <View flex={1} bgColor="violet.26">
+ <Button 
+ //onPress={handleSubmit(handleCadAtiTest)}
+ onPress={handleCadAtiTest}
+  rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
+                    <Text>Cadastrar</Text>
+                </Button>
 
             <Text my={30} textAlign='center' fontSize={"4xl"}
                 fontFamily="bold">
                Cadastre uma atividade
 
             </Text>
-            <VStack flex={1}
+            {/* <VStack flex={1}
 
                 bgColor="violet.25"
 
@@ -96,7 +120,7 @@ export default function CadAula({navigation}) {
                     <Text>Cadastrar</Text>
                 </Button>
             
-            </VStack >
+            </VStack > */}
 
         </View>
     );

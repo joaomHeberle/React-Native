@@ -4,15 +4,19 @@ import { NativeBaseProvider,extendTheme, Text, VStack } from 'native-base';
 import React from 'react'
 import { useFonts } from 'expo-font';
 import MyNavigator from './src/Componentes/MyNavigator';
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+SplashScreen.preventAutoHideAsync();
 
-
-
+import{ UserProvider} from './src/assets/contexts/Context'
 
 
 
 export default function App({navigation}) {
+
+
   const [user,setUser] = useState(null);
+  const [userId,setUserId]= useState(null);
   const [fontsLoaded] = useFonts({
     'choco': require('./src/assets/fonts/Chococooky.ttf'),
     'dance': require('./src/assets/fonts/DancingScript-Medium.ttf'),
@@ -47,21 +51,29 @@ export default function App({navigation}) {
 
    });
 useEffect(() => {
-  const descrito=Auth().onAuthStateChanged(userLogado=>{
+  Auth().onAuthStateChanged(userLogado=>{
     setUser(userLogado);
+    if(userLogado!=null){
+      setUserId(userLogado.uid);
+    }
+
    });
-return descrito;
+   //PegarUsuario(user);
+
 }, []);
   return (
+
     <NativeBaseProvider theme={theme}>
       {fontsLoaded?(
-   
-       <MyNavigator Login={user}></MyNavigator>
+        setTimeout(async () => {
+          await SplashScreen.hideAsync();
+        }, 1000),
+        <UserProvider User={user}>
+       <MyNavigator Login={user} ID={userId}></MyNavigator>
+       </UserProvider>
+
       )
-   :(<VStack>
-        
-        <Text> aguarde </Text>
-        </VStack>
+   :(    <Text>e</Text>
         )
       }
    

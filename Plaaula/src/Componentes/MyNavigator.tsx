@@ -5,7 +5,7 @@ import LogadoRender from '../screens/Logado/LogadoRender';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'native-base';
-import { useEffect } from 'react';
+
 
 
 
@@ -13,12 +13,14 @@ const Stack = createNativeStackNavigator();
 
 
 function MyNavigator(props) {
-    
+   
     let ini="Home";
     const { colors } = useTheme();
 
     if(props.Login){
         ini="Logado"
+        //console.log(props.ID)
+
     }else{
        ini="Home"
     }
@@ -36,7 +38,8 @@ function MyNavigator(props) {
        
        headerTintColor: 'black',
        headerStyle: { backgroundColor: colors.fundo[1] },      
-       headerTitleStyle:{
+       headerTitleStyle:
+       {
            fontFamily:'dance-Bold'
        },
        headerTitle:"Inicio"
@@ -56,7 +59,7 @@ function MyNavigator(props) {
        },
        headerTitle:"Cadastro de Professor"
 }} />
-<Stack.Screen name="Logado" component={LogadoRender}options={{
+<Stack.Screen name="Logado" component={LogadoRender} initialParams={props.ID} options={{
         headerShown: false,
        headerTintColor: 'black',
        headerStyle: { backgroundColor: colors.fundo[1]  },      

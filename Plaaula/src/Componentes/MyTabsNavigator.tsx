@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
       fontFamily: 'dance',
     },
   });
-function MyTabsNavigator() {
+function MyTabsNavigator(props) {
 
     const { colors } = useTheme();
 
@@ -32,7 +32,7 @@ function MyTabsNavigator() {
      
     >
       <Tab.Screen
-        name="Logado"
+        name="Inicio"
         component={Logado}
         
         options={{
@@ -55,6 +55,7 @@ function MyTabsNavigator() {
           ),
      
         }}
+        initialParams={props.ID}
       />
       <Tab.Screen
         name="Perfil"

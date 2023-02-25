@@ -6,14 +6,27 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "icon": "./src/Imagens/icon.png",
+    "splash": {
+      "image": "./src/Imagens/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#D8BFD8"
+    },
     "android": {
       "package": "com.plaaula",
-      "googleServicesFile": "./google-services.json"
-    },"ios": {
+      "googleServicesFile": "./google-services.json",
+      "icon":"./src/Imagens/adaptive-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/Imagens/adaptive-icon.png",
+        "backgroundColor": "#D8BFD8"
+      }
+    },
+    "ios": {
+      "icon":"./src/Imagens/adaptive-icon.png",
       "googleServicesFile": "./GoogleService-Info.plist"
-    }, "plugins": [
+    },
+    "plugins": [
       "@react-native-firebase/app"
-      
     ],
     "extra": {
       "eas": {

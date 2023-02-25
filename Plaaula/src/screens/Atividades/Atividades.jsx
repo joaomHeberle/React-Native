@@ -1,21 +1,21 @@
 import * as React from "react";
-import {View, Text,VStack,Button,Center,HStack, Link, Box } from "native-base";
-
+import {VStack,Box,Divider } from "native-base";
+import {ListAtividade} from "../../Componentes/ListAtividade";
 
 
 
 function Atividades() {
     return (  
-        <VStack flex={1}
-
-        bgColor="violet.25"
-
-        w="100%">
-        <Box bgColor='violet.25' flex={1}>
-        <Text>Atividade</Text>
- 
+        <Box flex={1} bgColor="violet.25">
+        
+            <Box>aqui vai ficar o cadastrar</Box>
+       
+      
+            <ListAtividade></ListAtividade>
+        
+    
+      
         </Box>
-        </VStack>
     );
 }
 

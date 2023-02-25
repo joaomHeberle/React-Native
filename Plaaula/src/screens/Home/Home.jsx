@@ -19,7 +19,7 @@ function handleCadProf(data) {
 autenticacaoEmail(data.email,data.senha,{navigation});
 
   }
-  console.log(data);
+
 }
   return (
 
@@ -29,7 +29,7 @@ autenticacaoEmail(data.email,data.senha,{navigation});
 
           <Text my={30} textAlign='center' fontSize={"4xl"}
               fontFamily="bold">
-              Bem vindo ao Pla'ula
+              Bem vindo ao Pla'pp
 
           </Text>
           <VStack flex={1}
