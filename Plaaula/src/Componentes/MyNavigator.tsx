@@ -5,6 +5,7 @@ import LogadoRender from '../screens/Logado/LogadoRender';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'native-base';
+import DetalheAula from './DetalheAula';
 
 
 
@@ -44,11 +45,17 @@ function MyNavigator(props) {
        },
        headerTitle:"Inicio"
 }}
-
-
-   
-  
-
+    />
+    <Stack.Screen name="DetalheAula" component={DetalheAula} options={{
+       
+       headerTintColor: 'black',
+       headerStyle: { backgroundColor: colors.fundo[1] },      
+       headerTitleStyle:
+       {
+           fontFamily:'dance-Bold'
+       },
+       headerTitle:"Inicio"
+}}
     />
 <Stack.Screen name="CadProf" component={CadProf}options={{
        

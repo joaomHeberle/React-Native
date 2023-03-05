@@ -1,4 +1,5 @@
-import { Box, Center,Text, FlatList,  SectionList} from "native-base";
+import {Link, Box, Center,Text, FlatList,  SectionList,Image} from "native-base";
+
 import { useEffect, useState } from "react";
 import test from "../Banco/test.json"
 import groupBy from "lodash/groupBy"
@@ -8,21 +9,34 @@ import {
     SafeAreaView,
 
   } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 const listaAtividades =test;
 
 
 
 export function ListAtividade() {
-
+const navigation = useNavigation();
     const [atividade,setAtividade] = useState([]);
-
+    const [imagem,setImagem] = useState();
     const groupedList=_.chain(listaAtividades)
         .groupBy('Componente')
         .sortBy('titulo')    
         .value();
         
         
-    
+    const register = (item)=>{
+       
+    navigation.navigate("DetalheAula",{
+    foto:item.foto,
+    titulo:item.titulo,
+    Criado:item.createdAt,
+    descricao: item.descricao,
+    Componente: item.Componente,
+    ano: item.ano,
+    objetosConhecimento: item.objetosConhecimento,
+    habilidades:item.habilidades
+    })
+    }
 
     function listar(){
         var Ati=[];
@@ -46,9 +60,15 @@ export function ListAtividade() {
  
 function renderAti(item){
 
-return <Box bg={'amber.100'} marginBottom={"1.5"} marginRight={"1"}>
+return (
+    <Link onPress={()=>{register(item)}}>
+<Box bg={'amber.100'} marginBottom={"1.5"} marginRight={"1"}>
+
 <Center>
-<Text>{item.foto}</Text>
+    
+{item.foto &&<Image width={'32'} height={'32'} alt='foto' source={{ uri: item.foto }}/>} 
+ 
+
 <Text> Titulo: {item.titulo}
 
 
@@ -56,10 +76,12 @@ return <Box bg={'amber.100'} marginBottom={"1.5"} marginRight={"1"}>
 </Text>
 
 <Text>Descrição:{item.descricao}</Text>
+
 </Center>
 
 </Box>
-
+</Link>
+)
     
 
 }
@@ -93,6 +115,7 @@ return <Center>
         />
             </Center> */}
         <Center w="100%">
+    
         <SectionList
          maxW="300" 
          w="100%" 
