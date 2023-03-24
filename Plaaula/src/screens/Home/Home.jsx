@@ -88,11 +88,11 @@ autenticacaoEmail(data.email,data.senha,{navigation});
             
               <Button onPress={handleSubmit(handleCadProf)} rounded="3xl" bg={'cadastrar.1'}
               mt='100' mx={'3'} width={"2/4"}>
-                  <Text fontSize={'md'}>Entrar</Text>
+                  <Text fontSize={'xl'}>Entrar</Text>
               </Button>
               </Center>
               <HStack mt="6" justifyContent="center">
-            <Text fontSize="md" color="coolGray.900" _dark={{
+            <Text fontSize="3xl" color="coolGray.900" _dark={{
             color: "warmGray.200"
           }}>
               Novo usuario.{" "}
@@ -100,7 +100,7 @@ autenticacaoEmail(data.email,data.senha,{navigation});
             <Link _text={{
             color: "indigo.500",
             fontWeight: "medium",
-            fontSize: "md"
+            fontSize: "3xl"
           }} onPress={()=>
             navigation.navigate('CadProf')
 

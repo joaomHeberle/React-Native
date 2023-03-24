@@ -64,7 +64,7 @@ function MyNavigator(props) {
        headerTitleStyle:{
            fontFamily:'dance-Bold'
        },
-       headerTitle:"Cadastro de Professor"
+       headerTitle:"Cadastre-se"
 }} />
 <Stack.Screen name="Logado" component={LogadoRender} initialParams={props.ID} options={{
         headerShown: false,

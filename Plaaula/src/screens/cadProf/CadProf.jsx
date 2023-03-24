@@ -11,7 +11,7 @@ export default function CadProf({navigation}) {
         resolver: yupResolver(cadProfSchema)
     });
     function handleCadProf(data) {
-              CadastrarProfessor(data.email,data.senha)
+              CadastrarProfessor(data.email,data.senha,data.nome)
               navigation.navigate('Home');
     }
     return (
@@ -93,7 +93,10 @@ export default function CadProf({navigation}) {
 
                 </Center>
                 <Button onPress={handleSubmit(handleCadProf)} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
-                    <Text>Cadastrar</Text>
+                <Text fontSize="xl" color="coolGray.900" _dark={{
+            color: "warmGray.200"
+          }}>Cadastrar
+            </Text>
                 </Button>
             
             </VStack >

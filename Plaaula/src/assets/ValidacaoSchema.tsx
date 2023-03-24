@@ -3,7 +3,13 @@ import React from "react";
 import * as yup from 'yup';
 
 
+// export const cadAulaBncc= yup.object({
+//     descr: yup.string()
+//     .min(2,"Ano deve ter no minimo 2 caracteres")
+//     .max(3,"Ano deve ter no maximo 3 caracteres"),
 
+
+// })
 export const cadProfSchema = yup.object({
     nome: yup.string()
         //.matches(/[^a-zA-Z\wÀ-ú ]/g, "Nome deve conter apenas letras")

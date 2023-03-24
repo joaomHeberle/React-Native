@@ -3,84 +3,121 @@ import { Alert } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
 import { at, result } from 'lodash';
-
+import uuid from 'react-native-uuid';
 
 
 
 const bnccCollection = firestore().collection('BNCC');
-const atividadeCollection = firestore().collection('Atividade');
-export function CadastrarProfessor(email:string, senha:string) {
- Auth()
- .createUserWithEmailAndPassword(email,senha)
- .then((result)=>{Alert.alert("Conta","Cadastrada com sucesso"+result.user.uid)})
- 
- .catch((error)=>console.log(error))
- 
-//pega o id result.user.uid
+const atividadeCollection = firestore().collection('Usuario');
+
+
+export function CadastrarProfessor(email: string, senha: string, nome: string) {
+  Auth()
+    .createUserWithEmailAndPassword(email, senha)
+    .then((result) => { Alert.alert("Conta", "Cadastrada com sucesso" + result.user), CadastrarUsuario(result.user.uid, nome) })
+
+    .catch((error) => console.log(error))
+
+  //pega o id result.user.uid
 }
 
-export function Imprimi(){
-//console.log(BNCCJson.ARTE[2]['ANO/FAIXA'])
-console.log(BNCCJson.length)
+export function Imprimi() {
+  //console.log(BNCCJson.ARTE[2]['ANO/FAIXA'])
+  console.log(BNCCJson.length)
 }
 
-export function CadastrarBNCC(){
-  for(let i=0;i<=BNCCJson.length;i++){
-  bnccCollection
-    .doc("Lingua Portuguesa")
-    .set({
-      BNCC:BNCCJson,
+export function CadastrarBNCC() {
+  for (let i = 0; i <= BNCCJson.length; i++) {
+    bnccCollection
+      .doc("Lingua Portuguesa")
+      .set({
+        BNCC: BNCCJson,
       })
-      
+
       .then(() => {
         console.log('User added!');
       });
-    }
+  }
 }
-export async function lerAtividades (id){
-  
- const atividades= await atividadeCollection.doc(id).get();
+export async function lerAtividades(id) {
 
-if(atividades._data==undefined)
- return false;
- return atividades._data.atividade;
+  const atividades = await atividadeCollection.doc(id).get();
+
+  if (atividades._data == undefined)
+    return false;
+  return atividades._data.atividade;
+}
+async function pegaNome(id) {
+
+  const buffer = await atividadeCollection.doc(id).get();
+
+  const nome = buffer._data.nome;
+  // console.log(nome);
+
+  return nome;
+}
+export async function CadastrarAtividade(id, data) {
+  const atiBuffer = await lerAtividades(id);
+  console.log(atiBuffer + "cadastrar atividade")
+
+  var nome = await pegaNome(id)
+  console.log(nome + "cadastrar")
+  if (atiBuffer) {
+
+
+    atividadeCollection
+      .doc(id)
+      .set({
+        nome: nome,
+        atividade: [...atiBuffer, data]
+      })
+      .then(() => {
+        console.log('Atividade adicionada com sucesso');
+      })
+      .catch((error) => Alert.alert(error));
+  } else {
+
+    atividadeCollection
+      .doc(id)
+      .set({
+        nome: nome,
+        atividade: [data]
+      })
+
+      .then(() => {
+        console.log('Atividade adicionada com sucesso');
+      })
+      .catch((error) => Alert.alert(error));
+  }
 }
 
-export async function CadastrarAtividade(id,data){
-  const atiBuffer=await lerAtividades(id);
-  console.log(atiBuffer)
-if(atiBuffer){
 
+export function cadastrarAtividade() {
+  const Dados = {
+    ID: uuid.v4(),
+    titulo: "cs",
+    isPublic: true,
+    foto: "regina",
+    descricao: "",
+    Componente: "",
+    ano: "",
+    objetosConhecimento: "",
+    habilidades: "",
+    createdAt: new Date(),
+  }
+  const ID = "GeD6hZPbTSeCqKFhmQzfvgsmNSe2";
+  CadastrarAtividade(ID, Dados)
+}
+
+function CadastrarUsuario(uid: string, nome: string) {
 
   atividadeCollection
-  .doc(id)
-  .set({atividade:[...atiBuffer,data]})
-  .then(() => {
-    console.log('User added!');
-  })
-  .catch((error)=>Alert.alert(error));
-}else{
+    .doc(uid)
+    .set({ nome: nome })
+    .then(() => {
+      console.log('criado Usuario na atividade');
+    })
+    .catch((error) => Alert.alert(error));
 
-  atividadeCollection
-  .doc(id)
-  .set({atividade:[data]})
-  .then(() => {
-    console.log('User added!');
-  })
-  .catch((error)=>Alert.alert(error));
 }
-}
-export function cadastrarAtividade(){
-  const data=[{
-    titulo:"a",
-    createdAt:firestore.FieldValue.serverTimestamp(),
-    isPublic:true,
-    foto:"a",
-    descricao:"",
-    Componente:'',
-    ano:"",
-    objetosConhecimento:"",
-    habilidades:""
-  }]
-  return data
-}
+

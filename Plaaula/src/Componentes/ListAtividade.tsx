@@ -66,8 +66,8 @@ return (
 
 <Center>
     
-{item.foto &&<Image width={'32'} height={'32'} alt='foto' source={{ uri: item.foto }}/>} 
- 
+{item.foto &&<Image width={'32'} height={'32'} alt='Foto' source={{ uri: item.foto }}/>} 
+
 
 <Text> Titulo: {item.titulo}
 
