@@ -1,13 +1,12 @@
 import { Center, VStack, Text, View, Button, Spinner, Image } from 'native-base';
 import storage from '@react-native-firebase/storage';
-
 import { Alert, Platform } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { CadastrarAtividade, CadastrarProfessor } from '../../Banco/Cadastros';
 import { UserContext } from "../../assets/contexts/Context";
 import * as IMAGEPICKER from 'expo-image-picker'
-
 import uuid from 'react-native-uuid';
+
 export default function CadAulaImagem({ navigation }) {
     const imgData="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/" +
     "2wBDAAYEBAQFBAYFBQYJBgUGCQsIBgYICwwKCgsKCgwQDAwMDAwMEAwOD" +
@@ -33,6 +32,7 @@ export default function CadAulaImagem({ navigation }) {
 
     const { id } = React.useContext(UserContext);
     const [image, setImage] = useState(imgData);
+  
     const [allImage, setallImage] = useState([]);
     const [transferred, setTransferred] = useState(0);
     const [uploading, setUploading] = useState(false);

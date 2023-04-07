@@ -14,7 +14,7 @@ const atividadeCollection = firestore().collection('Usuario');
 export function CadastrarProfessor(email: string, senha: string, nome: string) {
   Auth()
     .createUserWithEmailAndPassword(email, senha)
-    .then((result) => { Alert.alert("Conta", "Cadastrada com sucesso" + result.user), CadastrarUsuario(result.user.uid, nome) })
+    .then((result) => { Alert.alert("Conta", "Cadastrada com sucesso" ), CadastrarUsuario(result.user.uid, nome) })
 
     .catch((error) => console.log(error))
 
@@ -39,7 +39,7 @@ export function CadastrarBNCC() {
       });
   }
 }
-export async function lerAtividades(id) {
+export async function lerAtividades(id:string) {
 
   const atividades = await atividadeCollection.doc(id).get();
 
@@ -47,7 +47,7 @@ export async function lerAtividades(id) {
     return false;
   return atividades._data.atividade;
 }
-async function pegaNome(id) {
+async function pegaNome(id:string) {
 
   const buffer = await atividadeCollection.doc(id).get();
 
@@ -56,7 +56,7 @@ async function pegaNome(id) {
 
   return nome;
 }
-export async function CadastrarAtividade(id, data) {
+export async function CadastrarAtividade(id:string, data:any) {
   const atiBuffer = await lerAtividades(id);
   console.log(atiBuffer + "cadastrar atividade")
 

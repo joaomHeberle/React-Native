@@ -21,6 +21,7 @@
         "backgroundColor": "#D8BFD8"
       }
     },
+    
     "ios": {
       "icon":"./src/Imagens/adaptive-icon.png",
       "googleServicesFile": "./GoogleService-Info.plist"

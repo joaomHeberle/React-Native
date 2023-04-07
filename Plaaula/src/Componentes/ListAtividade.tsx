@@ -2,7 +2,7 @@ import {Link, Box, Center,Text, FlatList,  SectionList,Image} from "native-base"
 
 import { useEffect, useState } from "react";
 import test from "../Banco/test.json"
-import groupBy from "lodash/groupBy"
+
 import _ from "lodash";
 import {
 
@@ -18,11 +18,21 @@ export function ListAtividade() {
 const navigation = useNavigation();
     const [atividade,setAtividade] = useState([]);
     const [imagem,setImagem] = useState();
-    const groupedList=_.chain(listaAtividades)
+
+    const MatematicaList=_.filter(listaAtividades,{'Componente':'Matematica'})
+    const PortuguesList=_.filter(listaAtividades,{'Componente':'Lingua Portuguesa'})
+    const ArteList=_.filter(listaAtividades,{'Componente':'Arte'})
+    const FilteredList= _.concat(MatematicaList,PortuguesList,ArteList)
+   
+    // const groupedList=_.chain(listaAtividades)
+    //     .groupBy('Componente')
+    //     .sortBy('titulo')    
+    //     .value();
+
+        const groupedList=_.chain(FilteredList)
         .groupBy('Componente')
         .sortBy('titulo')    
         .value();
-        
         
     const register = (item)=>{
        

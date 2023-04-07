@@ -3,6 +3,7 @@ npx expo run:android
 com.plaaula
 npx cross-env EAS_NO_VCS=1 eas build
 
-
-
-
+10.0.0.107:8081
+(
+no celular
+)
