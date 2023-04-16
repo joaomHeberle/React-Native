@@ -6,6 +6,7 @@ import { CadastrarAtividade, CadastrarProfessor } from '../../Banco/Cadastros';
 import { UserContext } from "../../assets/contexts/Context";
 import * as IMAGEPICKER from 'expo-image-picker'
 import uuid from 'react-native-uuid';
+import BarraInput from '../../Componentes/BarraInput';
 
 export default function CadAulaImagem({ navigation }) {
     const imgData="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/" +
@@ -141,18 +142,18 @@ export default function CadAulaImagem({ navigation }) {
                     <Text>Cadastrar</Text>
                 </Button> */}
 
-            <Text my={30} textAlign='center' fontSize={"4xl"}
+            {/* <Text my={30} textAlign='center' fontSize={"4xl"}
                 fontFamily="bold">
                 Cadastre uma atividade
 
-            </Text>
+            </Text> */}
 
             <VStack flex={1}
 
                 bgColor="violet.25"
 
                 w="100%">
-
+ <BarraInput value={100}></BarraInput>
                 <Center>
                     <Button
                         // onPress={handleSubmit(handleCadProf)}

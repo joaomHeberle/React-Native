@@ -2,24 +2,64 @@ import Auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
-import { at, result } from 'lodash';
+
 import uuid from 'react-native-uuid';
+
+
 
 
 
 const bnccCollection = firestore().collection('BNCC');
 const atividadeCollection = firestore().collection('Usuario');
 
-
-export function CadastrarProfessor(email: string, senha: string, nome: string) {
-  Auth()
-    .createUserWithEmailAndPassword(email, senha)
-    .then((result) => { Alert.alert("Conta", "Cadastrada com sucesso" ), CadastrarUsuario(result.user.uid, nome) })
-
-    .catch((error) => console.log(error))
-
-  //pega o id result.user.uid
+export function CadastrarProfessor(email: string, senha: string, nome: string,{navigation}): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+   
+    Auth()
+      .createUserWithEmailAndPassword(email, senha)
+      .then((result) => { 
+        Alert.alert("Conta", "Cadastrada com sucesso" ),
+        CadastrarUsuario(result.user.uid, nome)
+        navigation.navigate('Logado');
+     
+        resolve(false);
+      })
+      .catch((error) => {
+        var erro = error+"";
+       
+        if (erro.includes("auth/email-already-in-use")) {
+          Alert.alert("Conta", "Erro Usuario ja existe" )
+        }
+        resolve(true);
+      })
+  });
 }
+
+// export function CadastrarProfessor(email: string, senha: string, nome: string,{navigation}) {
+// let test:boolean;
+
+//   Auth()
+//     .createUserWithEmailAndPassword(email, senha)
+//     .then((result) => { 
+//       Alert.alert("Conta", "Cadastrada com sucesso" ),
+//       CadastrarUsuario(result.user.uid, nome)
+    
+//       navigation.navigate('Logado');
+//       test=false
+//       })
+//     .catch((error) =>
+    
+//     { var erro= error+""
+  
+//   test=true
+//   if (erro.includes("auth/email-already-in-use")) {
+//     Alert.alert("Conta", "Erro Usuario ja existe" )
+//   }
+// })
+// return test;
+
+//   //pega o id result.user.uid
+// }
 
 export function Imprimi() {
   //console.log(BNCCJson.ARTE[2]['ANO/FAIXA'])

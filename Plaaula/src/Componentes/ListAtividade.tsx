@@ -19,11 +19,10 @@ const navigation = useNavigation();
     const [atividade,setAtividade] = useState([]);
     const [imagem,setImagem] = useState();
 
-    const MatematicaList=_.filter(listaAtividades,{'Componente':'Matematica'})
-    const PortuguesList=_.filter(listaAtividades,{'Componente':'Lingua Portuguesa'})
-    const ArteList=_.filter(listaAtividades,{'Componente':'Arte'})
-    const FilteredList= _.concat(MatematicaList,PortuguesList,ArteList)
-   
+    const FilteredList=_.filter(listaAtividades,{'Componente':'Matematica'})
+    .concat(_.filter(listaAtividades,{'Componente':'Lingua Portuguesa'}))
+   .concat(_.filter(listaAtividades,{'Componente':'Arte'}))
+  
     // const groupedList=_.chain(listaAtividades)
     //     .groupBy('Componente')
     //     .sortBy('titulo')    

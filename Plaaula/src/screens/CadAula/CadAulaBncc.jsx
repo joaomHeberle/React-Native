@@ -1,38 +1,64 @@
-import { Box, FormControl as FormBase, Center, VStack, Text, Button, CheckIcon, View, Select, HStack } from 'native-base';
+import { FormControl as FormBase, WarningOutlineIcon, Center, VStack, Text, Button, CheckIcon, View, Select, HStack } from 'native-base';
 import React from 'react';
-import { Input } from '../../Componentes/Input';
 import { useForm, Controller } from "react-hook-form";
 import { lerBncc, lerBnccInterno } from '../../Banco/Consulta';
+import BarraInput from '../../Componentes/BarraInput';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { cadAulaBnccSchema } from '../../assets/ValidacaoSchema';
+import { ErrorMessage } from '@hookform/error-message';
 
-
-
-export default function CadAulaBncc({ navigation }) {
+export default function CadAulaBncc({ navigation, proximo }) {
     const [componente, setComponente] = React.useState([]);
-    const { control, register, handleSubmit, formState: { errors } } = useForm();
+
+    const { control, register, watch, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(cadAulaBnccSchema)
+
+
+    });
+ 
     async function handleCadAula(data) {
-        console.log(data);
-        pegaComponenteInterno(data)
+        // console.log(data);
+        //pegaComponenteInterno(data)
+        navigation.navigate('CadAulaImagem');
     }
     async function pegaComponente(data) {
         var disciplina = converteParaOBanco(data.Componente);
         var anoBuffer = data.Ano
         var ano = anoBuffer.substring(0, 2)
         var listaObjetos = await lerBncc(disciplina, ano)
-        console.log(listaObjetos)
+
     }
-    async function pegaComponenteInterno(data) {
-        var disciplina = converteParaOBanco(data.Componente);
-        var anoBuffer = data.Ano
-        var ano = anoBuffer.substring(0, 2)
-        var listaObjetos = await lerBnccInterno(data.Componente, ano)
-        // setComponente(listaObjetos.map(componente=>{
-        //     return componente['OBJETOS DE CONHECIMENTO']
-        // }))
-        // console.log(listaObjetos.map(componente=>{
-        //     return componente['OBJETOS DE CONHECIMENTO']
-        // }))
-        setComponente(listaObjetos)
+    async function pegaComponenteInterno() {
+        const selectedComponenteValue =  watch("Componente")
+        const SelectedAnoValue = watch("Ano")
+        
+        if (selectedComponenteValue && SelectedAnoValue) {
+            var anoBuffer = SelectedAnoValue
+            var ano = anoBuffer.substring(0, 2)
+            var listaObjetos = await lerBnccInterno(selectedComponenteValue, ano)
+
+            setComponente(listaObjetos)
+        } else {
+            console.log("Selected");
+        }
+
     }
+    // async function pegaComponenteInterno(data) {
+    //     if(selectedComponenteValue&&SelectedAnoValue){
+    //         var disciplina = converteParaOBanco(data.Componente);
+    //         var anoBuffer = data.Ano
+    //         var ano = anoBuffer.substring(0, 2)
+    //         var listaObjetos = await lerBnccInterno(data.Componente, ano)
+    //         // setComponente(listaObjetos.map(componente=>{
+    //         //     return componente['OBJETOS DE CONHECIMENTO']
+    //         // }))
+    //         // console.log(listaObjetos.map(componente=>{
+    //         //     return componente['OBJETOS DE CONHECIMENTO']
+    //         // }))
+    //         setComponente(listaObjetos)
+    //     }
+
+    // }
     function converteParaOBanco(componente) {
         switch (componente) {
             case 'Arte':
@@ -76,114 +102,114 @@ export default function CadAulaBncc({ navigation }) {
         <View flex={1} bgColor="violet.26">
 
 
-            <Text my={30} textAlign='center' fontSize={"5xl"}
-                fontFamily="bold">
-                Crie sua Atividade
 
-            </Text>
+
+
             <VStack flex={1}
                 bgColor="violet.25"
-                w="100%">
+                w="100%"
 
-                <Center>
-                <Controller control={control}
-                        name="titulo"
-                        render={({ field: { onChange } }) => (
-                            <Input
-                                isRequired={true}
-                                autoCapitalize='words'
-                                autoComplete='off'
-                                returnKeyType='done'
-                                requerido={true}
-                                title="Titulo"
-                                onChangeText={onChange}
-                                errorMessage={errors.titulo?.message}
-                            />
-                        )}
-                    />
-                    
-                    <Controller control={control}
-                        name="descricao"
-                        render={({ field: { onChange } }) => (
-                            <Input
-                                autoCapitalize='words'
-                                autoComplete='off'
-                                returnKeyType='done'
-                                title="Descrição"
-                                paddingX="10"
-                                onChangeText={onChange}
-                                requerido={true}
-                                errorMessage={errors.descricao?.message}
-                            />
-                        )}
-                    />
+            >
+                <BarraInput value={50}></BarraInput>
+                <Center >
+
                     <Controller control={control}
                         name="Ano"
+                      
                         render={({ field: { onChange } }) => (
-                            <VStack>
+                            <VStack marginTop={'1/5'}>
                                 <Text style={{ marginLeft: 10 }}>Selecione um Ano:</Text>
                                 <Select minWidth="200" accessibilityLabel="Escolha um ano"
-                                    placeholder="Escolha um Ano" onValueChange={onChange}
+                                    placeholder="Escolha um Ano" onValueChange={(value) => {
+                                        onChange(value);
+                                        pegaComponenteInterno();
+                                    }}
                                     style={{ height: 50, marginLeft: 10 }}
                                     _selectedItem={{
                                         bg: "teal.600",
                                         endIcon: <CheckIcon size={2} />
-                                    }} mt="1" >
+                                    }} mt="1" isInvalid={!!errors.Ano}>
                                     {dados.map(ano => {
                                         return <Select.Item key={ano} label={ano} value={ano} onChangeText={onChange} />
                                     })}
                                 </Select>
+
+                                <Center>
+                                    {errors && <Text color={"red.500"}>{errors.Ano?.message}</Text>}
+                                </Center>
+
                             </VStack>
                         )}
-                    />
+                    >
+
+
+                    </Controller>
+
+
                     <Controller control={control}
                         name="Componente"
-                        render={({ field: { onChange } }) => (
-                            <VStack>
+
+                        render={({ field: { onChange }, fieldState: { error } }) => (
+                            <VStack marginTop={'1/5'}>
                                 <Text style={{ marginLeft: 10 }}>Selecione um componente curricular:</Text>
                                 <Select minWidth="200" accessibilityLabel="Escolha um Componente Curricular"
-                                    placeholder="Escolha um Componente Curricular" onValueChange={onChange}
+                                    placeholder="Escolha um Componente Curricular" onValueChange={(value) => {
+                                        onChange(value);
+                                        pegaComponenteInterno();
+                                    }}
                                     style={{ height: 50, marginLeft: 10 }}
                                     _selectedItem={{
                                         bg: "teal.600",
                                         endIcon: <CheckIcon size={2} />
                                     }} mt="1" >
                                     {componentDado.map(componente => {
-                                        return <Select.Item key={componente} label={componente} 
-                                        value={componente} onChangeText={onChange} />
+                                        return <Select.Item key={componente} label={componente}
+                                            value={componente} onChangeText={onChange} />
                                     })}
                                 </Select>
+                                <Center>
+                                    {errors && <Text color={"red.500"}>{errors.Componente?.message}</Text>}
+                                </Center>
                             </VStack>
 
                         )}
+
                     />
+
                     <Controller control={control}
+
                         name="Objeto"
-                        render={({ field: { onChange } }) => (
-                            <VStack>
-                                <Text style={{ marginLeft: 10}}>Selecione um objeto de conhecimento:</Text>
+                        render={({ field: { onChange },fieldState: { error }  }) => (
+                            <VStack marginTop={'1/5'}>
+                                <Text style={{ marginLeft: 10 }}>Selecione um objeto de conhecimento:</Text>
                                 <Select minWidth="200" accessibilityLabel="Escolha um objeto de conhecimento"
-                                    placeholder="Escolha um objeto de conhecimento" onValueChange={onChange}
-                                    style={{ height: 50, marginLeft: 10}}
+                                     placeholder="Escolha um objeto de conhecimento" onValueChange={onChange}
+                                    style={{ height: 50, marginLeft: 10 }}
                                     _selectedItem={{
                                         bg: "teal.600",
                                         endIcon: <CheckIcon size={2} />
                                     }} mt="1" >
                                     {componente.map(objeto => {
-                                        return <Select.Item  key={objeto} label={objeto} value={objeto} onChangeText={onChange} />
+                                        return <Select.Item key={objeto} label={objeto} value={objeto} onChangeText={onChange} />
+                                        
                                     })}
                                 </Select>
+                                <Center>
+                                    {errors && <Text color={"red.500"}>{errors.Objeto?.message}</Text>}
+                                </Center>
                             </VStack>
 
                         )}
                     />
-        
+
 
 
 
 
 
                 </Center>
+
+
                 <Button onPress={handleSubmit(handleCadAula)} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
                     <Text>Proximo</Text>
                 </Button>

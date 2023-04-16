@@ -12,15 +12,15 @@ function Logado({navigation}) {
     return (  
 
         <Box bgColor='violet.25' flex={1}>
-        <Text>Logado</Text>
+  
      
         {/* <Button onPress={CadastrarBNCC}>
 <Text>ver Json</Text>
         </Button> */}
-        <Button onPress={cadastrarAtividade}>
+        {/* <Button onPress={cadastrarAtividade}>
 <Text>cadastra atividade test</Text>
-        </Button>
-        <CadAulaImagem></CadAulaImagem>
+        </Button> */}
+        {/* <CadAulaImagem></CadAulaImagem> */}
         </Box>
        
     );

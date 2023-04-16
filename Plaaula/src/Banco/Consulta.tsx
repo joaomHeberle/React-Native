@@ -41,7 +41,7 @@ return filteredList
     })
    // console.log(componente)
 const noRepeat= _.uniq(componente)
-console.log(noRepeat)
+
 return noRepeat
   }
 

@@ -10,6 +10,7 @@ import { StyleSheet } from 'react-native';
 
 import CadAulaImagem from '../screens/CadAula/CadAulaImagem';
 import CadAulaBncc from '../screens/CadAula/CadAulaBncc';
+import CadAula from '../screens/CadAula/CadAula';
 
 const Tab = createMaterialBottomTabNavigator();
 const styles = StyleSheet.create({
@@ -25,7 +26,7 @@ function MyTabsNavigator(props) {
     <Tab.Navigator
       initialRouteName="Logado"
       activeColor="black"
-
+      
       inactiveColor='white'
       barStyle={{ 
         backgroundColor: colors.violet[26],
@@ -34,14 +35,14 @@ function MyTabsNavigator(props) {
      }}
   
      
-    >
+    > 
+
       <Tab.Screen
         name="Inicio"
         component={Logado}
-        
         options={{
-          
           tabBarLabel: null,
+          
           tabBarIcon: ({ color}) => (
             <MaterialCommunityIcons name="home" color={color} size={32} />
           ),
@@ -64,9 +65,10 @@ function MyTabsNavigator(props) {
           <Tab.Screen
       
       name="CadAtividade"
-      component={CadAulaBncc}
+      component={CadAula}
       options={{
         tabBarLabel: null,
+        
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="plus-box-outline" color={color} size={32} />
         ),
@@ -74,10 +76,12 @@ function MyTabsNavigator(props) {
       }}
       initialParams={props.ID}
     />
+    
       <Tab.Screen
         name="Perfil"
         component={Perfil}
         options={{
+          
           tabBarLabel: null,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={32} />

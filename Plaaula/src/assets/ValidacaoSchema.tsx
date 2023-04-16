@@ -24,8 +24,36 @@ export const cadProfSchema = yup.object({
         .required("Digite uma senha")
         .min(8, "Senha deve ter no minino 8 caracteres"),
 
-
+});
+export const homeSchema = yup.object({
+     email: yup.string()
+        .required("Digite um email valido")
+        .email("digite um email valido"),
+    senha: yup.string()
+        .required("Digite uma senha")
+        .min(8, "Senha deve ter no minino 8 caracteres"),
 
 });
+export const cadAulaBnccSchema = yup.object({
+    Ano: yup.string()
+       .required("Escolha uma opção"),
+   Componente: yup.string()
+   .required("Escolha uma opção"),
+   Objeto: yup.string()
+   .required("Escolha uma opção")
+   .min(1,"Escolha uma opção"),
 
+});
+export const CadDescricaoSchema = yup.object({
+    duracao: yup.number()
+       .required("Digite uma duração valida")
+       .min(1,"Duração deve ser maior que 1 minuto")
+       .max(60, "Duração deve ser menor que 60 minuto")
+       .positive()
+       .integer()
+       ,
+//    senha: yup.string()
+//        .required("Digite uma senha")
+//        .min(8, "Senha deve ter no minino 8 caracteres"),
 
+});
