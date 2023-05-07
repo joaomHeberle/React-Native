@@ -1,7 +1,7 @@
 import * as React from "react";
 import {VStack,Box,Divider } from "native-base";
-import {ListAtividade} from "../../Componentes/ListAtividade";
-import CadAula from "../CadAula/CadAulaImagem";
+import {ListAtividade} from "./ListAtividade";
+
 
 
 function Atividades() {

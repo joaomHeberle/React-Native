@@ -5,11 +5,12 @@
         "createdAt": "33",
         "isPublic": true,
         "foto": "https://firebasestorage.googleapis.com/v0/b/planejartcc-9ba2e.appspot.com/o/images%2Fatividades%2F1.png?alt=media&token=fa439a81-d528-4650-a4d3-0ed116392daa",
-        "descricao": "os mares do acre",
+        "metodologia": "os mares do acre",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "110",
@@ -17,11 +18,12 @@
         "createdAt": "22",
         "isPublic": true,
         "foto": "3",
-        "descricao": "caernas",
+        "metodologia": "caernas",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "12",
@@ -29,11 +31,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "https://firebasestorage.googleapis.com/v0/b/planejartcc-9ba2e.appspot.com/o/images%2Fatividades%2F1.png?alt=media&token=fa439a81-d528-4650-a4d3-0ed116392daa",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Matematica",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "11",
@@ -41,11 +44,12 @@
         "createdAt": "33",
         "isPublic": true,
         "foto": "23",
-        "descricao": "os mares do acre",
+        "metodologia": "os mares do acre",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "1-10",
@@ -53,11 +57,12 @@
         "createdAt": "22",
         "isPublic": true,
         "foto": "45",
-        "descricao": "caernas",
+        "metodologia": "caernas",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "102",
@@ -65,11 +70,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "https://firebasestorage.googleapis.com/v0/b/planejartcc-9ba2e.appspot.com/o/images%2Fatividades%2F1.png?alt=media&token=fa439a81-d528-4650-a4d3-0ed116392daa",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Matematica",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "191",
@@ -77,11 +83,12 @@
         "createdAt": "33",
         "isPublic": true,
         "foto": "23",
-        "descricao": "os mares do acre",
+        "metodologia": "os mares do acre",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "1810",
@@ -89,11 +96,12 @@
         "createdAt": "22",
         "isPublic": true,
         "foto": "45",
-        "descricao": "caernas",
+        "metodologia": "caernas",
         "Componente": "Historia",
         "ano": "3º",
         "objetosConhecimento": "barcos",
-        "habilidades": "03ef54hi"
+        "habilidades": "03ef54hi",
+        "duracao": 22
     },
     {
         "id": "172",
@@ -101,11 +109,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "22",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Matematica",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "1212",
@@ -113,11 +122,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "22",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "geografia",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "1271",
@@ -125,11 +135,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "22",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "ensino religioso",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "1266",
@@ -137,11 +148,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "2",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Lingua Portuguesa",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "1255",
@@ -149,11 +161,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "22",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "educação fisica",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "123",
@@ -161,11 +174,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "22c",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Arte",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "123",
@@ -173,11 +187,12 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "2zxc2",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Lingua Inglesa",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     },
     {
         "id": "+123",
@@ -185,10 +200,11 @@
         "createdAt": "28",
         "isPublic": false,
         "foto": "2cxz2",
-        "descricao": "matriz africana",
+        "metodologia": "matriz africana",
         "Componente": "Ciencias",
         "ano": "2º",
         "objetosConhecimento": "matrizes",
-        "habilidades": "ef02hi03"
+        "habilidades": "ef02hi03",
+        "duracao": 22
     }
 ]

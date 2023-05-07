@@ -3,9 +3,6 @@ import { Alert } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
 
-import uuid from 'react-native-uuid';
-
-
 
 
 
@@ -34,32 +31,21 @@ export function CadastrarProfessor(email: string, senha: string, nome: string,{n
       })
   });
 }
+function CadastrarUsuario(uid: string, nome: string) {
 
-// export function CadastrarProfessor(email: string, senha: string, nome: string,{navigation}) {
-// let test:boolean;
+  atividadeCollection
+    .doc(uid)
+    .set({ nome: nome })
+    .then(() => {
+      console.log('criado Usuario na atividade');
+    })
+    .catch((error) => Alert.alert(error));
 
-//   Auth()
-//     .createUserWithEmailAndPassword(email, senha)
-//     .then((result) => { 
-//       Alert.alert("Conta", "Cadastrada com sucesso" ),
-//       CadastrarUsuario(result.user.uid, nome)
-    
-//       navigation.navigate('Logado');
-//       test=false
-//       })
-//     .catch((error) =>
-    
-//     { var erro= error+""
-  
-//   test=true
-//   if (erro.includes("auth/email-already-in-use")) {
-//     Alert.alert("Conta", "Erro Usuario ja existe" )
-//   }
-// })
-// return test;
+}
 
-//   //pega o id result.user.uid
-// }
+
+
+
 
 export function Imprimi() {
   //console.log(BNCCJson.ARTE[2]['ANO/FAIXA'])
@@ -92,16 +78,16 @@ async function pegaNome(id:string) {
   const buffer = await atividadeCollection.doc(id).get();
 
   const nome = buffer._data.nome;
-  // console.log(nome);
+
 
   return nome;
 }
 export async function CadastrarAtividade(id:string, data:any) {
   const atiBuffer = await lerAtividades(id);
-  console.log(atiBuffer + "cadastrar atividade")
+
 
   var nome = await pegaNome(id)
-  console.log(nome + "cadastrar")
+
   if (atiBuffer) {
 
 
@@ -132,32 +118,5 @@ export async function CadastrarAtividade(id:string, data:any) {
 }
 
 
-export function cadastrarAtividade() {
-  const Dados = {
-    ID: uuid.v4(),
-    titulo: "cs",
-    isPublic: true,
-    foto: "regina",
-    descricao: "",
-    Componente: "",
-    ano: "",
-    objetosConhecimento: "",
-    habilidades: "",
-    createdAt: new Date(),
-  }
-  const ID = "GeD6hZPbTSeCqKFhmQzfvgsmNSe2";
-  CadastrarAtividade(ID, Dados)
-}
 
-function CadastrarUsuario(uid: string, nome: string) {
-
-  atividadeCollection
-    .doc(uid)
-    .set({ nome: nome })
-    .then(() => {
-      console.log('criado Usuario na atividade');
-    })
-    .catch((error) => Alert.alert(error));
-
-}
 

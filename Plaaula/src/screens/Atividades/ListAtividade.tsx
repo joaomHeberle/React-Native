@@ -1,7 +1,7 @@
 import {Link, Box, Center,Text, FlatList,  SectionList,Image} from "native-base";
 
 import { useEffect, useState } from "react";
-import test from "../Banco/test.json"
+import test from "../../Banco/test.json"
 
 import _ from "lodash";
 import {
@@ -27,23 +27,24 @@ const navigation = useNavigation();
     //     .groupBy('Componente')
     //     .sortBy('titulo')    
     //     .value();
-
+console.log(FilteredList)
         const groupedList=_.chain(FilteredList)
         .groupBy('Componente')
         .sortBy('titulo')    
         .value();
-        
+     
     const register = (item)=>{
        
     navigation.navigate("DetalheAula",{
     foto:item.foto,
     titulo:item.titulo,
     Criado:item.createdAt,
-    descricao: item.descricao,
+    metodologia: item.metodologia,
     Componente: item.Componente,
     ano: item.ano,
     objetosConhecimento: item.objetosConhecimento,
-    habilidades:item.habilidades
+    habilidades:item.habilidades,
+    duracao: item.duracao
     })
     }
 
@@ -84,7 +85,7 @@ return (
 
 </Text>
 
-<Text>Descrição:{item.descricao}</Text>
+<Text>Metodologia:{item.metodologia}</Text>
 
 </Center>
 

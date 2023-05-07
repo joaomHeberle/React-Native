@@ -1,17 +1,10 @@
-import Auth from '@react-native-firebase/auth'
-import { Alert } from 'react-native'
-import firestore from '@react-native-firebase/firestore';
-import BNCCLPJson from './BNCC banco/LP/1jc9q-f8otp.json';
-import BNCCArteJson from './BNCC banco/ARTE/c16ls-vz0l5.json';
-import BNCCCieJson from './BNCC banco/Cie/b56jy-85llc.json';
-import BNCCERJson from './BNCC banco/E.R/wmdy8-s3n85.json';
-import BNCCEFJson from './BNCC banco/ED.F/yqqg1-osp1l.json';
-import BNCCGeoJson from './BNCC banco/GEO/xqvro-jdhe2.json';
-import BNCCHisJson from './BNCC banco/his/oc1bi-e7uey.json';
-import BNCCLIJson from './BNCC banco/Lin. Inglesa/wi4kz-hvz8h.json';
 
-import BNCCMatJson from './BNCC banco/LP/1jc9q-f8otp.json';
+import firestore from '@react-native-firebase/firestore';
+
+
+
 import _ from "lodash";
+import { converteNomeParaOJson } from '../assets/functions/ConversorComponenteNome';
 
 const bnccCollection = firestore().collection('BNCC');
 const atividadeCollection = firestore().collection('Usuario');
@@ -28,8 +21,23 @@ export async function lerBncc(disciplina:string,ano:string) {
   //console.log(filteredList)
 return filteredList
   }
+  export async function minhasAtividades(id:string,componente:string) {
 
-  export async function lerBnccInterno(disciplina:string,ano:string) {
+    const atividades = await atividadeCollection.doc(id).get();
+    const att=atividades._data.atividade;
+//console.log(att)
+     const filteredList= _.filter(att,obj=>{
+         return _.has(obj,"componente") && _.includes(obj["componente"], componente);
+     })
+    
+  //console.log(filteredList)
+ return filteredList
+  }
+
+
+
+  //Internos
+  export async function lerBnccObjetoInterno(disciplina:string,ano:string) {
     const nome = converteNomeParaOJson(disciplina)
     const filteredList= _.filter(nome,obj=>{
         return _.has(obj,"ANO/FAIXA") && _.includes(obj["ANO/FAIXA"], ano);
@@ -45,36 +53,26 @@ const noRepeat= _.uniq(componente)
 return noRepeat
   }
 
-  function converteNomeParaOJson(componente:string) {
-    switch (componente) {
-        case 'Arte':
-            return BNCCArteJson;
-            break;
-        case "Ciências":
-            return BNCCCieJson;
-            break;
-        case "Ensino Religioso":
-            return BNCCERJson;
-            break;
-        case "Educação Física":
-            return BNCCEFJson;
-            break;
-        case "Geografia":
-            return BNCCGeoJson;
-            break;
-        case "História":
-            return BNCCHisJson;
-            break;
-        case "Língua Inglesa":
-            return BNCCLIJson;
-            break;
-        case "Língua Portuguesa":
-            return BNCCLPJson;
-            break;
-        case "Matemática":
-            return BNCCMatJson;
-            break;
-        default:
-            break;
-    }
-}
+export async function lerBnccHabilidadeInterno(disciplina:string,ano:string,Objeto:string) {
+    const nome = converteNomeParaOJson(disciplina)
+ 
+    const filteredList= _.filter(nome,obj=>{
+        return _.has(obj,"ANO/FAIXA") && _.includes(obj["ANO/FAIXA"], ano);
+    })
+
+
+    const ObjetoFilteredList = _.filter(filteredList,obj=>{
+        return _.has(obj,'OBJETOS DE CONHECIMENTO')&& _.includes(obj['OBJETOS DE CONHECIMENTO'], Objeto);
+    })
+    const habilidade= ObjetoFilteredList .map(habilidade=>{
+        return (
+          habilidade['HABILIDADES']
+            )
+    })
+
+return habilidade
+  }
+
+
+
+  

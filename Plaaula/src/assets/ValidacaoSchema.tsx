@@ -42,6 +42,9 @@ export const cadAulaBnccSchema = yup.object({
    Objeto: yup.string()
    .required("Escolha uma opção")
    .min(1,"Escolha uma opção"),
+   Habilidade:yup.string()
+   .required("Escolha uma opção")
+   .min(1,"Escolha uma opção"),
 
 });
 export const CadDescricaoSchema = yup.object({
@@ -49,9 +52,11 @@ export const CadDescricaoSchema = yup.object({
        .required("Digite uma duração valida")
        .min(1,"Duração deve ser maior que 1 minuto")
        .max(60, "Duração deve ser menor que 60 minuto")
-       .positive()
-       .integer()
+       .positive("Numero precisa ser maior que 1")
+       .integer("Deve ser um numero inteiro")
+       .typeError("Duração deve ser um numero")
        ,
+
 //    senha: yup.string()
 //        .required("Digite uma senha")
 //        .min(8, "Senha deve ter no minino 8 caracteres"),

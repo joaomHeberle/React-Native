@@ -10,6 +10,8 @@ SplashScreen.preventAutoHideAsync();
 
 import{ UserProvider} from './src/assets/contexts/Context'
 
+import {AtividadeProvider} from './src/assets/contexts/AtividadeContext';
+
 
 
 export default function App({navigation}) {
@@ -69,7 +71,9 @@ useEffect(() => {
           await SplashScreen.hideAsync();
         }, 1000),
         <UserProvider User={user}>
+        <AtividadeProvider>
        <MyNavigator Login={user} ID={userId}></MyNavigator>
+       </AtividadeProvider>
        </UserProvider>
 
       )

@@ -1,4 +1,4 @@
-import { Input as InputBase, IInputProps, FormControl as FormBase, IFormControlProps } from "native-base";
+import { Input as InputBase, IInputProps, FormControl as FormBase, IFormControlProps, Center } from "native-base";
 import { border } from "native-base/lib/typescript/theme/styled-system";
 import React from "react";
 import { FormLabel } from "./FormLabel";
@@ -43,13 +43,14 @@ export function Input(
 
                 }
             />
-        
-            <FormBase.ErrorMessage fontSize="8xl"   paddingLeft='3.5'>
+    
+            <FormBase.ErrorMessage  fontSize="8xl"   paddingLeft='3.5'>
                 {errorMessage
 
                 }
 
             </FormBase.ErrorMessage>
+        
         </FormBase>
     )
 
