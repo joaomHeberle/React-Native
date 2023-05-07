@@ -123,7 +123,7 @@ backgroundColor: "gray.50"
     fontWeight: "700",
     fontSize: "xs"
   }} position="absolute" bottom="0" px="3" py="1.5">
-      PHOTOS
+      {item.ano}
     </Center>
   </Box>
   <Stack p="4" space={3}>
