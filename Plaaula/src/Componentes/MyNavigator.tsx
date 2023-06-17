@@ -11,6 +11,7 @@ import CadAulaBncc from '../screens/CadAula/CadAulaBncc';
 
 import CadAulaImagem from '../screens/CadAula/CadAulaImagem';
 import { MinhaAtividade } from '../screens/Atividades/MinhaAtividade';
+import MeuDetalhe from '../screens/Atividades/MeuDetalhe';
 
 
 
@@ -62,9 +63,8 @@ function MyNavigator(props) {
        headerTitle:"Detalhe"
 }}
     />
-
-<Stack.Screen name="ImagemPerfil" component={ImagemPerfil} options={{
-          headerShown: false,
+       <Stack.Screen name="MeuDetalhe" component={MeuDetalhe} options={{
+        //   headerShown: false,
        headerTintColor: 'black',
        headerStyle: { backgroundColor: colors.fundo[1] },      
        headerTitleStyle:
@@ -72,6 +72,18 @@ function MyNavigator(props) {
            fontFamily:'dance-Bold'
        },
        headerTitle:"Detalhe"
+}}
+    />
+
+<Stack.Screen name="ImagemPerfil" component={ImagemPerfil} options={{
+        
+       headerTintColor: 'black',
+       headerStyle: { backgroundColor: colors.fundo[1] },      
+       headerTitleStyle:
+       {
+           fontFamily:'dance-Bold'
+       },
+       headerTitle:"Foto do perfil"
 }}
     />
     <Stack.Screen name="MinhaAtividade" component={MinhaAtividade} options={{

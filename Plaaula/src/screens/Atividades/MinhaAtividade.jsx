@@ -13,6 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import { converteNomeParaMinhaAtividade } from "../../assets/functions/ConversorComponenteNome";
 import { minhasAtividades } from "../../Banco/Consulta";
 import { BlankImage } from "../../assets/imgUri/BlankImage";
+import converteDate from "../../assets/functions/ConverteDate";
+import { AtivContext } from "../../assets/contexts/AtividadeContext";
 const listaAtividades =test;
 
 
@@ -25,6 +27,8 @@ export function MinhaAtividade() {
     const navigation = useNavigation();
     const [atividade,setAtividade] = React.useState([]);
     const [imagem,setImagem] = React.useState();
+    const ativDado = React.useContext(AtivContext)
+    
     // const [listaAtividades,setListaAtividades]=React.useState([]);
  
    // const FilteredList=_.filter(listaAtividades,{'Componente':''+componenteRecebido})
@@ -51,12 +55,15 @@ export function MinhaAtividade() {
     duracao: item.duracao
     })
     }
+    const montaContext=(item)=>{
+      ativDado.setAtividade(item)
+    }
     const verAtividades=()=>{
        
         console.log(id)
     }
   async function listar(){
-     
+     let aulas=[]
  const minhaAtiv = await minhasAtividades(id,componenteRecebido)
             
  
@@ -82,6 +89,18 @@ function pegaCodigoHabilidade(item){
     // console.log(resultado)
     return resultado
 }
+// function converteDate(item){
+//   console.log(item)
+// const timestamp = item.seconds
+
+// const date= new Date(timestamp*1000)
+// const ano = date.getFullYear();
+// const mes = date.getMonth() + 1;
+// const dia = date.getDate();
+// const fullDate= dia+"/"+mes+"/"+ano
+
+//   return fullDate 
+// }
 
     React.useEffect(()=>{
       
@@ -93,14 +112,16 @@ function pegaCodigoHabilidade(item){
 
    
     return (
+ 
   <SafeAreaView bgColor="violet.26" flex={1}>
      <Box flex={1} bgColor="violet.26">
+     
           {/* <Center bgColor="violet.25">  */}
     <FlatList mt={"3"} data={atividade} bgColor="violet.25" renderItem={({
       item
     }) =>
     <Box alignItems="center" mb={"2"} mt={"2"}>
-<Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+<Box onTouchStart={() => {navigation.navigate('MeuDetalhe'),montaContext(item)}} maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
 borderColor: "coolGray.600",
 backgroundColor: "gray.700"
 }} _web={{
@@ -124,6 +145,7 @@ backgroundColor: "gray.50"
     fontSize: "xs"
   }} position="absolute" bottom="0" px="3" py="1.5">
       {item.ano}
+
     </Center>
   </Box>
   <Stack p="4" space={3}>
@@ -149,7 +171,8 @@ backgroundColor: "gray.50"
         <Text color="coolGray.600" _dark={{
         color: "warmGray.200"
       }} fontWeight="400">
-          6 mins ago
+        {converteDate(item.criadoEm)}
+          
         </Text>
       </HStack>
     </HStack>
@@ -160,7 +183,7 @@ backgroundColor: "gray.50"
 
 }
   />
-<Text color={"red.900"}>{}</Text>
+
    
   
     {/* <Button onPress={verAtividades}> ver atividade</Button> */}

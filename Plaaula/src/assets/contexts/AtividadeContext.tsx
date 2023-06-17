@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import Auth from '@react-native-firebase/auth'
 export const AtivContext = React.createContext({});
 
 export function AtividadeProvider({children}){
@@ -21,17 +20,6 @@ export function AtividadeProvider({children}){
     });
 
 
-//  useEffect(() => {
-//     Auth().onAuthStateChanged(userLogado=>{
-//         setUsuario(userLogado);
-    
-//         if(userLogado!=null){
-//         setId(userLogado.uid)
-//         }
-//      });
-   
-  
-//   }, []);
     
     return(
         <AtivContext.Provider value={{atividade,setAtividade}}>

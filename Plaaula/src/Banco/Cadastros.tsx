@@ -6,9 +6,10 @@ import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
 
 
 
-const bnccCollection = firestore().collection('BNCC');
-const atividadeCollection = firestore().collection('Usuario');
 
+const bnccCollection = firestore().collection('BNCC');
+const usuarioCollection = firestore().collection('Usuario');
+const atividadeCollection = firestore().collection('Atividade');
 export function CadastrarProfessor(email: string, senha: string, nome: string,{navigation}): Promise<boolean> {
   return new Promise((resolve, reject) => {
    
@@ -33,9 +34,11 @@ export function CadastrarProfessor(email: string, senha: string, nome: string,{n
 }
 function CadastrarUsuario(uid: string, nome: string) {
 
-  atividadeCollection
+  usuarioCollection
     .doc(uid)
-    .set({ nome: nome })
+    .set({ nome: nome,
+    foto_Perfil:"",
+  atividade:[] })
     .then(() => {
       console.log('criado Usuario na atividade');
     })
@@ -43,7 +46,16 @@ function CadastrarUsuario(uid: string, nome: string) {
 
 }
 
-
+export function cadastrarFoto(uid:string, foto:string){
+//console.log(foto.foto)
+  usuarioCollection
+  .doc(uid)
+  .set({ foto_Perfil: foto.foto },{merge:true})
+  .then(() => {
+    console.log('Foto cadastrada');
+  })
+  .catch((error) => Alert.alert(error));
+}
 
 
 
@@ -67,7 +79,7 @@ export function CadastrarBNCC() {
 }
 export async function lerAtividades(id:string) {
 
-  const atividades = await atividadeCollection.doc(id).get();
+  const atividades = await usuarioCollection.doc(id).get();
 
   if (atividades._data == undefined)
     return false;
@@ -75,13 +87,28 @@ export async function lerAtividades(id:string) {
 }
 async function pegaNome(id:string) {
 
-  const buffer = await atividadeCollection.doc(id).get();
+  const buffer = await usuarioCollection.doc(id).get();
 
   const nome = buffer._data.nome;
 
 
   return nome;
 }
+
+export function cadastraAtividade(data:any,id:string){
+
+  atividadeCollection
+  .add(data)
+  .then((result) => {
+    console.log('Atividade cadastrada com sucesso');
+//console.log(result._documentPath._parts[1])
+CadastrarAtividade(id,result._documentPath._parts[1])
+  })
+  .catch((error) => Alert.alert(error));
+
+}
+
+
 export async function CadastrarAtividade(id:string, data:any) {
   const atiBuffer = await lerAtividades(id);
 
@@ -91,24 +118,22 @@ export async function CadastrarAtividade(id:string, data:any) {
   if (atiBuffer) {
 
 
-    atividadeCollection
+    usuarioCollection
       .doc(id)
       .set({
-        nome: nome,
-        atividade: [...atiBuffer, data]
-      })
+      atividade: [...atiBuffer, data]
+      },{merge:true})
       .then(() => {
         console.log('Atividade adicionada com sucesso');
       })
       .catch((error) => Alert.alert(error));
   } else {
 
-    atividadeCollection
+    usuarioCollection
       .doc(id)
       .set({
-        nome: nome,
-        atividade: [data]
-      })
+      atividade: [data]
+      },{merge:true})
 
       .then(() => {
         console.log('Atividade adicionada com sucesso');

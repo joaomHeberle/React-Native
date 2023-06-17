@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as base from "native-base";
-
-
+import storage from '@react-native-firebase/storage';
+import { UserContext } from "../../assets/contexts/Context";
 import * as IMAGEPICKER from 'expo-image-picker'
-
+import { cadastrarFoto } from "../../Banco/Cadastros";
+import { Alert } from 'react-native'
 
 
 
@@ -40,38 +41,151 @@ function ImagemPerfil({ navigation }) {
             quality: 1,
         });
 
-        console.log(result);
         if (!result.canceled) {
             setImage(result.assets[0].uri);
-
+            setFlag(true)
         } else {
             setImage(imgData)
+            setFlag(false)
+        }
+
+
+    }
+
+    async function imagemStorage(img) {
+
+
+        let uriArray = img.split("/");
+        let nome = uriArray[uriArray.length - 1];
+
+        const reference = storage().ref(`/images/atividades/${id}/${nome}`);
+
+        setTransferred(0);
+        setUploading(true);
+
+        const task = reference.putFile(img);
+
+        task.on('state_changed', taskSnapshot => {
+            // Pega URL da imagem salva no banco de dados 
+            storage().ref(`/images/atividades/${id}`).child(nome).getDownloadURL()
+                .then((url) => (
+                    setUrl(url)
+
+                ));
+            task.snapshot.ref.getDownloadURL().then(function (url_imagem) {
+                setUrl(url_imagem)
+
+   
+
+            })
+
+
+            setTransferred(
+                Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes * 100)
+            );
+        });
+
+        try {
+
+            await task;
+
+
+            setUploading(false);
+
+            Alert.alert("Imagem salva", "Imagem salva com sucesso");
+
+        } catch (error) {
+            setUploading(false);
+            console.log(error);
         }
 
     }
+
     const [image, setImage] = React.useState(imgData);
+    const [url, setUrl] = React.useState(imgData);
+    const [uploading, setUploading] = React.useState(false);
+    const [transferred, setTransferred] = React.useState(0);
+    const [flag, setFlag] = React.useState(false);
+    const { id } = React.useContext(UserContext);
     const voltar = () => {
         navigation.navigate('Perfil');
     }
+    function handleImagem() {
+        imagemStorage(image)
+    }
+    function handleCadFoto(Dados) {
+
+       // console.log(Dados)
+
+
+
+        cadastrarFoto(id, Dados)
+       // console.log("cadastrar")
+
+     navigation.navigate('Inicio')
+    }
+
+    React.useEffect(() => {
+        if (url != imgData) {
+            let Dados;
+
+            Dados = {
+                foto: url,
+
+
+            }
+
+            handleCadFoto(Dados)
+           
+
+        } else {
+            console.log("nao entrou")
+        }
+
+
+    }, [url]);
+
+
     return (
-        <base.View flex={3} bgColor="violet.25">
+        <base.View flex={1} bgColor="violet.25">
 
 
 
 
 
-            <base.Box bgColor='violet.25' flex={1}>
-                <base.Center height={"full"}>
-                    <base.Link onPress={pickImage}>
-                        <base.Image alt={"foto perfil"} size={"2xl"} source={{ uri: image }}
-                        />
-                    </base.Link>
+            <base.Box bgColor='violet.25' mt={"10"}>
+                <base.Center >
+                    
+                    <base.Image alt={"foto perfil"} size={"2xl"} source={{ uri: image }} />
+
+                    <base.Button onPress={pickImage} rounded='md' _text={{
+                        color:"black",
+                        fontSize:"lg",
+                     
+                    }} bg={'cadastrar.1'} fontFamily="bold" 
+                    marginBottom='1/2' size={"lg"} mt={"1/6"}>Mudar Foto do Perfil
+                    </base.Button>
+
                 </base.Center>
 
             </base.Box>
-            <base.Button onPress={
-                voltar
-            }>Voltar</base.Button>
+            {uploading ?
+                (
+                    <base.VStack space={2}>
+                        <base.Spinner color="emerald.500" size="lg" mt='100' mx={'3'} />
+                        <base.Text>{transferred} % Carregado</base.Text>
+                    </base.VStack>)
+                :
+                (flag && <base.Center>
+                <base.Button onPress={handleImagem} rounded='md'
+                    bg={'cadastrar.1'} width={"4/5"} fontFamily="choco" marginBottom='1/2'  >
+                    <base.Text>Cadastrar Imagem</base.Text>
+                </base.Button>
+                </base.Center>
+                )
+            }
+
+       
         </base.View>
     );
 }

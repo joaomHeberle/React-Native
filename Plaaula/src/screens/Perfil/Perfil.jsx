@@ -3,6 +3,7 @@ import * as base from "native-base";
 import { sair } from "../../Banco/Auth";
 
 import * as IMAGEPICKER from 'expo-image-picker'
+import AvatarImage from "../../Componentes/Avatar";
 
   
 
@@ -52,6 +53,7 @@ const pickImage = async () => {
     const [image, setImage] = React.useState(imgData);
     const signOut=()=>{
         sair({navigation});
+        navigation.navigate('Home')
     }
     return (  
         <base.View flex={1} bgColor="violet.26">
@@ -61,8 +63,19 @@ const pickImage = async () => {
                 {/* <base.Link onPress={()=>
             navigation.navigate('ImagemPerfil')
 }> */}
-        <base.Avatar  onTouchStart={()=>navigation.navigate('ImagemPerfil')} size="lg" source={{ uri: image }}/>
-{/* </base.Link> */}
+      <base.HStack >
+             
+             <AvatarImage onTouchStart={() => navigation.navigate('ImagemPerfil')} >
+                
+             </AvatarImage>
+                  {/* <Avatar onTouchStart={() => navigation.navigate('ImagemPerfil')} size="lg" source={{ uri: image }} /> */}
+          
+                  <base.Text alignItems="center" paddingLeft={"10"} fontSize={"4xl"} fontFamily="bold">Minhas Atividades
+                  </base.Text>
+             
+            
+
+          </base.HStack>
 </base.Box>
 
 </base.VStack>
