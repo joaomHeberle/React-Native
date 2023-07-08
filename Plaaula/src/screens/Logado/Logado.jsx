@@ -89,8 +89,8 @@ function Logado({ navigation }) {
                
 
                 <AppDrawer></AppDrawer>
-             <Button m={"0.5"} onPress={()=>UpdateAtividade("PA5CFamwhMJudEI3TFZH",{nome:"josue",cidade:"porto"})}>Update</Button> 
-            <Button onPress={()=>DeleteAtividade("PA5CFamwhMJudEI3TFZH","oCWaFshuWWWI3rOOLpLEGSqJP9l2")}>Remove</Button> 
+             {/* <Button m={"0.5"} onPress={()=>UpdateAtividade("PA5CFamwhMJudEI3TFZH",{nome:"josue",cidade:"porto"})}>Update</Button> 
+            <Button onPress={()=>DeleteAtividade("PA5CFamwhMJudEI3TFZH","oCWaFshuWWWI3rOOLpLEGSqJP9l2")}>Remove</Button>  */}
                   
                           
             </Box>

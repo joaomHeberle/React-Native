@@ -57,7 +57,7 @@ setLoading(false)
   //         .sortBy('titulo')    
   //         .value();
 
-  const register = (item:any) => {
+  const register = (item) => {
 
     navigation.navigate("DetalheAula", {
       foto: item.foto,
@@ -75,7 +75,7 @@ setLoading(false)
     setAtividade(await verTodasAtividades())
     listaAtivi()
   }
-  function verificaImagem(item:any) {
+  function verificaImagem(item) {
     if (item) {
       return item
     } else {
@@ -86,7 +86,7 @@ setLoading(false)
 
   }
 
-  function pegaNomeComponentes(item:any) {
+  function pegaNomeComponentes(item) {
     let componentes = []
   //console.log(item)
     forEach(item, (value) => {
