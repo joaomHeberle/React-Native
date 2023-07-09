@@ -35,15 +35,7 @@ return(
 <VStack flex={1} bgColor="violet.25"w="100%">
 
 <CadDescricao navigation={navigation}></CadDescricao>
-   {/* {prox==0&& <CadDescricao proximo={proximo}></CadDescricao>}
 
-    {prox==2&& <CadAulaImagem proximo={proximo}></CadAulaImagem>}
-   
-   {prox==1&& <CadAulaBncc proximo={proximo}></CadAulaBncc>} */}
-   
-    {/* <Button onPress={handleSubmit(handleCadAula)} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
-                    <Text>Proximo</Text>
-                </Button> */}
          
                 </VStack>
 </View>

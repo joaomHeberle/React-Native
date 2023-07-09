@@ -30,3 +30,22 @@ export default async function UpdateAtividade(idAtividade:string,dados:any){
 
 
 }
+
+export async function UpdateAtividadeId(idAtividade:string){
+
+  const aula = await atividadeCollection.doc(idAtividade)
+  .update({ID:idAtividade}).then(() => {
+      //console.log('Foto cadastrada');
+      Alert.alert("atividade atualziada com sucesso")
+    })
+    .catch((error) =>  {
+      var erro = error+""
+      if (erro.includes("firestore/not-found")) {
+      Alert.alert("Atividade", "Atividade não existe" )
+    }else{
+      Alert.alert(error)
+    }
+    });
+
+
+}

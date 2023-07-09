@@ -7,12 +7,18 @@ import {
     SafeAreaView,
 
   } from 'react-native';
-  
+  import { useForm, Controller } from "react-hook-form";
 import { AtivContext } from "../../assets/contexts/AtividadeContext";
 import { busca } from "../../Banco/Consulta";
 import { UserContext } from "../../assets/contexts/Context";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { CadDescricaoSchema } from "../../assets/ValidacaoSchema";
+import { Input } from "../../Componentes/Input";
+import { TextArea } from "../../Componentes/TextArea";
+import UpdateAtividade from "../../Banco/Update";
+import DeleteAtividade from "../../Banco/Delete";
 
-export default function MeuDetalhe(){
+export default function MeuDetalhe({ navigation }){
     const route = useRoute();
     const [imagem, setImagem] = React.useState();
     const ativDado = React.useContext(AtivContext)
@@ -22,6 +28,34 @@ export default function MeuDetalhe(){
     const [showModal, setShowModal] = React.useState(false);
     const [showModal2, setShowModal2] = React.useState(false);
     const [showModal3, setShowModal3] = React.useState(false);
+
+    const { control, register, handleSubmit, formState: { errors } } = useForm({
+      resolver: yupResolver(CadDescricaoSchema)
+  });
+  const handleAtt = (data)=>{
+
+//UpdateAtividade(ativDado.atividade.ID,data)
+    ativDado.setAtividade({
+      titulo: data.titulo,
+      isPublic: true,
+      foto: imagem,
+      metodologia: data.metodologia,
+      componente: ativDado.atividade.componente,
+      ano: ativDado.atividade.ano,
+      objetosConhecimento: ativDado.atividade.objetosConhecimento,
+      habilidades: ativDado.atividade.habilidades,
+      criadoEm: ativDado.atividade.criadoEm,
+      duracao: data.duracao
+    })
+    setShowModal(false);
+    // console.log( {titulo: data.titulo,
+    //         metodologia: data.metodologia,
+    //         duracao: data.duracao})
+  }
+  const deleta = ()=>{
+    DeleteAtividade(ativDado.atividade.ID,id)
+    navigation.navigate('MinhaAtividade')
+  }
 
     React.useEffect(() => {
         setImagem(ativDado.atividade.foto);
@@ -40,22 +74,68 @@ export default function MeuDetalhe(){
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="lg">
         <Modal.Content maxWidth="350">
           <Modal.CloseButton />
-          <Modal.Header>Order</Modal.Header>
+          <Modal.Header>Atualizar</Modal.Header>
           <Modal.Body>
-            <VStack space={3}>
-              <HStack alignItems="center" justifyContent="space-between">
-                <Text fontWeight="medium">Sub Total</Text>
-                <Text color="blueGray.400">$298.77</Text>
-              </HStack>
-              <HStack alignItems="center" justifyContent="space-between">
-                <Text fontWeight="medium">Tax</Text>
-                <Text color="blueGray.400">$38.84</Text>
-              </HStack>
-              <HStack alignItems="center" justifyContent="space-between">
-                <Text fontWeight="medium">Total Amount</Text>
-                <Text color="green.500">$337.61</Text>
-              </HStack>
-            </VStack>
+          <Center>
+                        <Controller control={control}
+                            name="titulo"
+                            render={({ field: { onChange } }) => (
+                                <Input
+                                    isRequired={true}
+                                    autoCapitalize='words'
+                                    autoComplete='off'
+                                    returnKeyType='done'
+                                    requerido={true}
+                                    title="Titulo"
+                                    onChangeText={onChange}
+                                    errorMessage={errors.titulo?.message}
+                                />
+                            )}
+                        />
+                        <Center>
+                            <Controller control={control}
+                                name="duracao"
+
+                                render={({ field: { onChange } }) => (
+
+                                    <Input
+                                        w={'1/5'}
+                                        maxLength={2}
+                                        keyboardType='numeric'
+                                        isRequired={true}
+                                        autoCapitalize='words'
+                                        autoComplete='off'
+                                        returnKeyType='done'
+                                        requerido={true}
+                                        title="Duração em Minutos"
+                                        onChangeText={onChange}
+                                        errorMessage={errors.duracao?.message}
+                                    />
+
+                                )}
+
+                            />
+
+                        </Center>
+
+                        <Controller control={control}
+                            name="metodologia"
+                            render={({ field: { onChange } }) => (
+                                <TextArea
+                                    keyboardType='name-phone-pad'
+                                    autoCapitalize='words'
+                                    autoComplete='off'
+                                    returnKeyType='done'
+                                    title="Metodologia"
+                                    paddingX="10"
+                                    onChangeText={onChange}
+                                    requerido={true}
+                                    errorMessage={errors.metodologia?.message}
+                                />
+                            )}
+                        />
+
+                    </Center>
           </Modal.Body>
           <Modal.Footer>
             <Button flex="1" onPress={() => {
@@ -63,11 +143,15 @@ export default function MeuDetalhe(){
           }}>
               Cancelar
             </Button>
-            <Button flex="1" onPress={() => {
+            {/* <Button flex="1" onPress={() => {
              setShowModal2(true);
           }}>
               Continuar
+            </Button> */}
+<Button flex="1" onPress={handleSubmit(handleAtt)}>
+              Continuar
             </Button>
+
           </Modal.Footer>
         </Modal.Content>
       </Modal>
@@ -163,9 +247,9 @@ export default function MeuDetalhe(){
           <Popover.Arrow />
           <Popover.CloseButton  onPress={() => setIsOpenDel(false)}/>
           <Popover.Header>Deletar Atividade</Popover.Header>
-          <Popover.Body>
+          <Popover.Body >
             Você tem certeza que quer deletar esta atividade ?
-            Após deletar é impossivel recuperar a atividade.
+            Após a exclusão é impossivel recuperar a atividade.
            </Popover.Body>
           <Popover.Footer justifyContent="flex-end">
      
@@ -173,7 +257,12 @@ export default function MeuDetalhe(){
               <Button onPress={() => setIsOpenDel(false)} colorScheme="coolGray" variant="ghost">
 cancelar
               </Button>
-              <Button colorScheme="danger">Deletar</Button>
+              <Button onPress={()=>{
+                //console.log(id)
+               deleta()
+              }
+              }
+                colorScheme="danger">Deletar</Button>
             </Button.Group>
           </Popover.Footer>
         </Popover.Content>

@@ -16,7 +16,7 @@ const atividadeCollection = firestore().collection('Atividade');
 
 
 export default async function DeleteAtividade(idAtividade:string,idUsuario:string){
-
+//console.log(idAtividade,idUsuario)
 
   
   const atividades = await usuarioCollection.doc(idUsuario).get();
@@ -24,14 +24,14 @@ export default async function DeleteAtividade(idAtividade:string,idUsuario:strin
 
 
 const removido =_.without(att,idAtividade)
-//console.log(removido)
+
 await usuarioCollection.doc(idUsuario).update({atividade:removido});
 await atividadeCollection.doc(idAtividade).delete()
 .then(() => {
   
   Alert.alert("Sucesso","atividade deletada com sucesso")
 })
-.catch((error) => Alert.alert(error));;
+.catch((error) => Alert.alert(error));
 
 
 }

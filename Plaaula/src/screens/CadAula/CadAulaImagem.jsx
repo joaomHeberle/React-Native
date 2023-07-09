@@ -2,10 +2,9 @@ import { Center, VStack, Text, View, Button, Spinner, Image } from 'native-base'
 import storage from '@react-native-firebase/storage';
 import { Alert, Platform } from 'react-native'
 import React, { useState, useEffect } from 'react';
-import { CadastrarAtividade, CadastrarProfessor, cadastraAtividade } from '../../Banco/Cadastros';
+import { cadastraAtividade } from '../../Banco/Cadastros';
 import { UserContext } from "../../assets/contexts/Context";
 import * as IMAGEPICKER from 'expo-image-picker'
-import uuid from 'react-native-uuid';
 import BarraInput from '../../Componentes/BarraInput';
 
 import { AtivContext } from '../../assets/contexts/AtividadeContext';
@@ -106,9 +105,7 @@ export default function CadAulaImagem({ navigation }) {
     const pickImage = async () => {
         let result = await IMAGEPICKER.launchImageLibraryAsync({
             mediaTypes: IMAGEPICKER.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
+         
         });
 
 
@@ -127,7 +124,7 @@ export default function CadAulaImagem({ navigation }) {
 
              Dados = {
 
-                ID: uuid.v4(),
+                //ID: uuid.v4(),
                 titulo: ativDado.atividade.titulo,
                 isPublic: true,
                 foto: url,

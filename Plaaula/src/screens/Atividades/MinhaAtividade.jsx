@@ -29,15 +29,6 @@ export function MinhaAtividade() {
     const [imagem,setImagem] = React.useState();
     const ativDado = React.useContext(AtivContext)
     
-    // const [listaAtividades,setListaAtividades]=React.useState([]);
- 
-   // const FilteredList=_.filter(listaAtividades,{'Componente':''+componenteRecebido})
-
-
-        // const groupedList=_.chain(listaAtividades)
-        // .groupBy('Componente')
-        // .sortBy('titulo')    
-        // .value();
 
       
 
@@ -115,8 +106,7 @@ function pegaCodigoHabilidade(item){
  
   <SafeAreaView bgColor="violet.26" flex={1}>
      <Box flex={1} bgColor="violet.26">
-     
-          {/* <Center bgColor="violet.25">  */}
+
     <FlatList mt={"3"} data={atividade} bgColor="violet.25" renderItem={({
       item
     }) =>

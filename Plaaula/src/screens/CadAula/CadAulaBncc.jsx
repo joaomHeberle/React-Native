@@ -74,39 +74,6 @@ export default function CadAulaBncc({ navigation, proximo }) {
 
     }
 
-    // function converteParaOBanco(componente) {
-    //     switch (componente) {
-    //         case 'Arte':
-    //             return 'ARTE';
-    //             break;
-    //         case "Ciências":
-    //             return 'Ciencias';
-    //             break;
-    //         case "Ensino Religioso":
-    //             return 'Ensino Religioso';
-    //             break;
-    //         case "Educação Física":
-    //             return 'Educacao fisica';
-    //             break;
-    //         case "Geografia":
-    //             return 'geografia';
-    //             break;
-    //         case "História":
-    //             return 'Historia';
-    //             break;
-    //         case "Língua Inglesa":
-    //             return 'Lingua Inglesa';
-    //             break;
-    //         case "Língua Portuguesa":
-    //             return 'Lingua Portuguesa';
-    //             break;
-    //         case "Matemática":
-    //             return 'Matematica';
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
     const dados = ["1º ano", "2º ano", "3º ano", "4º ano", "5º ano",
         "6º ano", "7º ano", "8º ano", "9º ano"]

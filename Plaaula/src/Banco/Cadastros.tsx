@@ -2,6 +2,7 @@ import Auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
+import { UpdateAtividadeId} from './Update';
 
 
 
@@ -103,6 +104,7 @@ export function cadastraAtividade(data:any,id:string){
     console.log('Atividade cadastrada com sucesso');
 //console.log(result._documentPath._parts[1])
 CadastrarAtividade(id,result._documentPath._parts[1])
+UpdateAtividadeId(result._documentPath._parts[1])
   })
   .catch((error) => Alert.alert(error));
 
