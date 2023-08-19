@@ -8,7 +8,7 @@ function LogadoRender(props) {
     return ( 
 
 <MyTabsNavigator ID={props.route.params.ID}>
-    {/* {console.log(props.route.params.ID)} */}
+
     </MyTabsNavigator>
 
 

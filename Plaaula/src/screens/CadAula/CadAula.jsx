@@ -14,32 +14,32 @@ export default function CadAula({ navigation }) {
     const { control, register, handleSubmit, formState: { errors } } = useForm({
 
     });
-const [prox, setProx] = React.useState(0);
+    const [prox, setProx] = React.useState(0);
 
-function handleCadAula(data) {
-    var buffer = prox+1;
-    console.log(buffer)
-setProx(buffer)
-}
-function proximo(data){
-    console.log(data)
-setProx(data);
-}
-return(
-    <View flex={1} bgColor="violet.26">
-    <Text my={30} textAlign='center' fontSize={"5xl"}
-    fontFamily="bold">
-    Crie sua Atividade
+    function handleCadAula(data) {
+        var buffer = prox + 1;
+        console.log(buffer)
+        setProx(buffer)
+    }
+    function proximo(data) {
+        console.log(data)
+        setProx(data);
+    }
+    return (
+        <View flex={1} bgColor="violet.26">
+            <Text my={30} textAlign='center' fontSize={"5xl"}
+                fontFamily="bold">
+                Crie sua Atividade
 
-</Text>
-<VStack flex={1} bgColor="violet.25"w="100%">
+            </Text>
+            <VStack flex={1} bgColor="violet.25" w="100%">
 
-<CadDescricao navigation={navigation}></CadDescricao>
+                <CadDescricao navigation={navigation}></CadDescricao>
 
-         
-                </VStack>
-</View>
 
-)
+            </VStack>
+        </View>
+
+    )
 
 }

@@ -17,8 +17,13 @@ import { Input } from "../../Componentes/Input";
 import { TextArea } from "../../Componentes/TextArea";
 import UpdateAtividade from "../../Banco/Update";
 import DeleteAtividade from "../../Banco/Delete";
+import GerarPDF from "../../assets/functions/GerarPDF";
 
 export default function MeuDetalhe({ navigation }){
+
+  
+
+
     const route = useRoute();
     const [imagem, setImagem] = React.useState();
     const ativDado = React.useContext(AtivContext)
@@ -32,6 +37,53 @@ export default function MeuDetalhe({ navigation }){
     const { control, register, handleSubmit, formState: { errors } } = useForm({
       resolver: yupResolver(CadDescricaoSchema)
   });
+  const imprimirPDF=()=>{
+    GerarPDF(html);
+}
+const html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>Tabela</title>
+  </head>
+  <body>
+      <table border="1">
+      <caption style="font-size: 24pt; font-weight: bold;">Plano de aula</caption>
+          <tr>
+              <td ">Titulo</td>
+              <td  style="font-size: 22pt;">${ativDado.atividade.titulo}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Duração</td>
+              <td>${ativDado.atividade.duracao}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Metodologia</td>
+              <td>${ativDado.atividade.metodologia}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Ano</td>
+              <td>${ativDado.atividade.ano}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Componente Curricular</td>
+              <td>${ativDado.atividade.componente}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Objetos de conhecimento</td>
+              <td>${ativDado.atividade.objetosConhecimento}</td> 
+          </tr>
+          <tr>
+          <td style="font-size: 22pt;">Habilidade</td>
+          <td>${ativDado.atividade.habilidades}</td> 
+      </tr>
+  </table>
+</body>
+</html>
+  
+  
+`;
+  
   const handleAtt = (data)=>{
 
 //UpdateAtividade(ativDado.atividade.ID,data)
@@ -70,7 +122,7 @@ export default function MeuDetalhe({ navigation }){
 
            {/* Modal */}
       <Center>
-      <Button  size={"lg"} m={2} colorScheme="emerald" onPress={() => setShowModal(true)}>Atualziar</Button>
+      <Button  size={"lg"} m={2} colorScheme="emerald" onPress={() => setShowModal(true)}>Atualizar</Button>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="lg">
         <Modal.Content maxWidth="350">
           <Modal.CloseButton />
@@ -93,7 +145,7 @@ export default function MeuDetalhe({ navigation }){
                             )}
                         />
                         <Center>
-                            <Controller control={control}
+                      {<Controller control={control}
                                 name="duracao"
 
                                 render={({ field: { onChange } }) => (
@@ -115,7 +167,7 @@ export default function MeuDetalhe({ navigation }){
                                 )}
 
                             />
-
+                                }
                         </Center>
 
                         <Controller control={control}
@@ -269,7 +321,7 @@ cancelar
       </Popover>
 
 
-
+      <Button  size={"lg"} m={2} onPress={imprimirPDF} colorScheme="cyan">Imprimir</Button>
    
       </HStack>
     </Box>

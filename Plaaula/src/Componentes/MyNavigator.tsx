@@ -12,6 +12,8 @@ import CadAulaBncc from '../screens/CadAula/CadAulaBncc';
 import CadAulaImagem from '../screens/CadAula/CadAulaImagem';
 import { MinhaAtividade } from '../screens/Atividades/MinhaAtividade';
 import MeuDetalhe from '../screens/Atividades/MeuDetalhe';
+import RecuperarSenha from '../screens/Home/RecuperarSenha';
+import EditarNome from '../screens/Perfil/EditarNome';
 
 
 
@@ -26,7 +28,7 @@ function MyNavigator(props) {
 
     if(props.Login){
         ini="Logado"
-        //console.log(props.ID)
+       // console.log(props.ID)
 
     }else{
        ini="Home"
@@ -52,8 +54,19 @@ function MyNavigator(props) {
        headerTitle:"Inicio"
 }}
     />
+    <Stack.Screen name="EditarNome" component={EditarNome} options={{
+       // headerShown: false,
+       headerTintColor: 'black',
+       headerStyle: { backgroundColor: colors.fundo[1] },      
+       headerTitleStyle:
+       {
+           fontFamily:'dance-Bold'
+       },
+       headerTitle:"Editar Nome"
+}}
+    />
     <Stack.Screen name="DetalheAula" component={DetalheAula} options={{
-          headerShown: false,
+          //headerShown: false,
        headerTintColor: 'black',
        headerStyle: { backgroundColor: colors.fundo[1] },      
        headerTitleStyle:
@@ -94,10 +107,19 @@ function MyNavigator(props) {
        {
            fontFamily:'dance-Bold'
        },
-       headerTitle:"Detalhe"
+       headerTitle:"Minha atividade"
 }}
     />
 <Stack.Screen name="CadProf" component={CadProf}options={{
+       headerShown: false,
+       headerTintColor: 'black',
+       headerStyle: { backgroundColor: colors.fundo[1]  },      
+       headerTitleStyle:{
+           fontFamily:'dance-Bold'
+       },
+       headerTitle:"Cadastre-se"
+}} />
+<Stack.Screen name="RecSenha" component={RecuperarSenha}options={{
        headerShown: false,
        headerTintColor: 'black',
        headerStyle: { backgroundColor: colors.fundo[1]  },      

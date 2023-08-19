@@ -115,12 +115,9 @@ function ImagemPerfil({ navigation }) {
     }
     function handleCadFoto(Dados) {
 
-       // console.log(Dados)
-
-
-
+ 
         cadastrarFoto(id, Dados)
-       // console.log("cadastrar")
+   
 
      navigation.navigate('Inicio')
     }

@@ -9,6 +9,11 @@ Auth().signInWithEmailAndPassword(email,senha)
 .catch(error=>{
     if(error.code === 'auth/wrong-password'){
         Alert.alert("Email ou senha invalida")
+    }else if(error.code ==='auth/user-not-found'){
+        Alert.alert(
+            "Alerta",
+            "Não há registro de usuário correspondente a este identificador.\nO usuário pode ter sido excluído."
+          );
     }
     }) 
 

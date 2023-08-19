@@ -6,6 +6,7 @@ import BarraInput from '../../Componentes/BarraInput';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cadAulaBnccSchema } from '../../assets/ValidacaoSchema';
 import { AtivContext } from '../../assets/contexts/AtividadeContext';
+import { set } from 'lodash';
 
 
 export default function CadAulaBncc({ navigation, proximo }) {
@@ -14,6 +15,8 @@ export default function CadAulaBncc({ navigation, proximo }) {
 
     const [objeto, setObjeto] = React.useState([]);
     const [habilidade, setHabilidade] = React.useState([]);
+    const[componente,setComponente] = React.useState([]);
+ const[flag,setFlag] = React.useState(false);
     const { control, register, watch, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(cadAulaBnccSchema)
 
@@ -41,29 +44,42 @@ export default function CadAulaBncc({ navigation, proximo }) {
         var listaObjetos = await lerBncc(disciplina, ano)
 
     }
+    function objeto1ao5(){
+        const selectedAnoValue = watch("Ano")
+        if (selectedAnoValue=="1º ano" 
+        || selectedAnoValue=="2º ano" 
+        || selectedAnoValue=="3º ano"
+        || selectedAnoValue=="4º ano"
+        ||selectedAnoValue=="5º ano") {
+        
+            setFlag(true);
+        } else{
+            setFlag(false);
+        }
+    }
     async function pegaObjetoInterno() {
         const selectedComponenteValue = watch("Componente")
-        const SelectedAnoValue = watch("Ano")
-
-        if (selectedComponenteValue && SelectedAnoValue) {
-            var anoBuffer = SelectedAnoValue
+        const selectedAnoValue = watch("Ano")
+        objeto1ao5()
+      
+        if (selectedComponenteValue && selectedAnoValue) {
+            var anoBuffer = selectedAnoValue
             var ano = anoBuffer.substring(0, 2)
             var listaObjetos = await lerBnccObjetoInterno(selectedComponenteValue, ano)
 
             setObjeto(listaObjetos)
-        } else {
-            console.log("Selected");
-        }
-
+            setHabilidade([])
+        } 
+       
     }
     async function pegaHabilidadeInterno() {
         const selectedComponenteValue = watch("Componente")
-        const SelectedAnoValue = watch("Ano")
+        const selectedAnoValue = watch("Ano")
         const selectedObjetoValue = watch("Objeto")
 
 
-        if (selectedObjetoValue) {
-            var anoBuffer = SelectedAnoValue
+        if (selectedObjetoValue && selectedComponenteValue && selectedAnoValue) {
+            var anoBuffer = selectedAnoValue
             var ano = anoBuffer.substring(0, 2)
             var listaHabilidades = await lerBnccHabilidadeInterno(selectedComponenteValue, ano, selectedObjetoValue)
 
@@ -79,6 +95,9 @@ export default function CadAulaBncc({ navigation, proximo }) {
         "6º ano", "7º ano", "8º ano", "9º ano"]
     const componentDado = ["Arte", "Ciências", "Ensino Religioso",
         "Educação Física", "Geografia", "História", "Língua Inglesa",
+        "Língua Portuguesa", "Matemática"]
+        const componentDado12345 = ["Arte", "Ciências", "Ensino Religioso",
+        "Educação Física", "Geografia", "História",
         "Língua Portuguesa", "Matemática"]
     return (
         <View flex={1} bgColor="violet.26">
@@ -128,8 +147,6 @@ export default function CadAulaBncc({ navigation, proximo }) {
 
 
                         </Controller>
-
-
                         <Controller control={control}
                             name="Componente"
 
@@ -146,7 +163,43 @@ export default function CadAulaBncc({ navigation, proximo }) {
                                             bg: "teal.600",
                                             endIcon: <CheckIcon size={2} />
                                         }} mt="1" >
-                                        {componentDado.map(componente => {
+                                        {flag ?
+                                            componentDado12345.map(componente => {
+                                            return <Select.Item key={componente} label={componente}
+                                                value={componente} onChangeText={onChange} />
+                                        }):componentDado.map(componente => {
+                                            return <Select.Item key={componente} label={componente}
+                                                value={componente} onChangeText={onChange} />
+                                        })
+                                        
+                                    }
+                                    </Select>
+                                    <Center>
+                                        {errors && <Text color={"red.500"}>{errors.Componente?.message}</Text>}
+                                    </Center>
+                                </VStack>
+
+                            )}
+
+                        />
+
+                       {/* { flag ? <Controller control={control}
+                            name="Componente"
+
+                            render={({ field: { onChange }, fieldState: { error } }) => (
+                                <VStack marginTop={'1/6'}>
+                                    <Text style={{ marginLeft: 10 }}>Selecione um componente curricular:</Text>
+                                    <Select minWidth="200" accessibilityLabel="Escolha um Componente Curricular"
+                                        placeholder="Escolha um Componente Curricular" onValueChange={(value) => {
+                                            onChange(value);
+                                            pegaObjetoInterno();
+                                        }}
+                                        style={{ height: 50, marginLeft: 10 }}
+                                        _selectedItem={{
+                                            bg: "teal.600",
+                                            endIcon: <CheckIcon size={2} />
+                                        }} mt="1" >
+                                        {componentDado12345.map(componente => {
                                             return <Select.Item key={componente} label={componente}
                                                 value={componente} onChangeText={onChange} />
                                         })}
@@ -158,8 +211,36 @@ export default function CadAulaBncc({ navigation, proximo }) {
 
                             )}
 
-                        />
+                        />:<Controller control={control}
+                        name="Componente"
 
+                        render={({ field: { onChange }, fieldState: { error } }) => (
+                            <VStack marginTop={'1/6'}>
+                                <Text style={{ marginLeft: 10 }}>Selecione um componente curricular:</Text>
+                                <Select minWidth="200" accessibilityLabel="Escolha um Componente Curricular"
+                                    placeholder="Escolha um Componente Curricular" onValueChange={(value) => {
+                                        onChange(value);
+                                        pegaObjetoInterno();
+                                    }}
+                                    style={{ height: 50, marginLeft: 10 }}
+                                    _selectedItem={{
+                                        bg: "teal.600",
+                                        endIcon: <CheckIcon size={2} />
+                                    }} mt="1" >
+                                    {componentDado.map(componente => {
+                                        return <Select.Item key={componente} label={componente}
+                                            value={componente} onChangeText={onChange} />
+                                    })}
+                                </Select>
+                                <Center>
+                                    {errors && <Text color={"red.500"}>{errors.Componente?.message}</Text>}
+                                </Center>
+                            </VStack>
+
+                        )}
+
+                    />} */}
+            
                         {objeto.length > 0 && <Controller control={control}
 
                             name="Objeto"
@@ -188,8 +269,8 @@ export default function CadAulaBncc({ navigation, proximo }) {
 
                             )}
                         />}
+         
                         {habilidade.length > 0 && <Controller control={control}
-
                             name="Habilidade"
                             render={({ field: { onChange }, fieldState: { error } }) => (
                                 <VStack marginTop={'5'}>

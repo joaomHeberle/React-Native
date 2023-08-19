@@ -23,6 +23,9 @@ export default function App({navigation}) {
     'choco': require('./src/assets/fonts/Chococooky.ttf'),
     'dance': require('./src/assets/fonts/DancingScript-Medium.ttf'),
     'dance-Bold':require('./src/assets/fonts/DancingScript-Bold.ttf'),
+    'roboto-medium': require('./src/assets/fonts/Roboto-Medium.ttf'),
+    'roboto-regular': require('./src/assets/fonts/Roboto-Regular.ttf'),
+    'roboto-Bold':require('./src/assets/fonts/Roboto-Bold.ttf'),
   });
 
 
@@ -46,8 +49,8 @@ export default function App({navigation}) {
     },
     fonts:{
       heading:'choco',
-      body:'dance',
-      bold:'dance-Bold'
+      body:'roboto-medium',
+      bold:'roboto-Bold'
 
     }
 
@@ -60,7 +63,7 @@ useEffect(() => {
     }
 
    });
-   //PegarUsuario(user);
+
 
 }, []);
   return (

@@ -27,26 +27,26 @@ export async function minhasAtividades(id: string, componente: string) {
 
 
   const atividades = await usuarioCollection.doc(id).get();
-  let aulas=[];
-  
+  let aulas = [];
+
   const att = atividades._data.atividade;
- 
+
   for (const idAtividade of att) {
     const aula = await atividadeCollection.doc(idAtividade).get();
     aulas.push(aula._data);
   }
 
 
- //console.log(aulas)
+  //console.log(aulas)
   const filteredList = _.filter(aulas, obj => {
     return _.has(obj, "componente") && _.includes(obj["componente"], componente);
   })
 
   //console.log(filteredList)
-  
+
   return filteredList
 
- 
+
 }
 
 
@@ -135,10 +135,21 @@ export async function PegarFoto(id: string) {
 
 
 }
+export async function PegarNome(id: string) {
+  var nome = "avai";
 
+  const atividades = await usuarioCollection.doc(id).get()
+    .then((querySnapshot) => {
+     
+      nome = querySnapshot._data.nome
+    });
+
+  return nome
+
+}
 export async function busca(idProf: string, idAtividade: string) {
   try {
-    console.log(idAtividade)
+
 
     const querySnapshot = await usuarioCollection
       //.where('atividade.ID','array-contains',{ID: `${idAtividade}`} )
@@ -146,7 +157,7 @@ export async function busca(idProf: string, idAtividade: string) {
       .where("atividade", "array-contains", { ID: `${idAtividade}` })
       .get()
     // .then((querySnapshot) => {
-    console.log(querySnapshot)
+
     // })
     querySnapshot.forEach((doc) => {
       console.log(doc.id, '=>', doc.data());
@@ -155,14 +166,6 @@ export async function busca(idProf: string, idAtividade: string) {
   } catch (error) {
     console.error('Erro ao executar a consulta: ', error);
   }
-  //console.log(atividades)
-  //   const att=atividades._data.atividade;
-  // //console.log(att)
-  //    const filteredList= _.filter(att,obj=>{
-  //        return _.has(obj,"componente") && _.includes(obj["componente"], componente);
-  //    })
 
-  //console.log(atividades)
-  //return filteredList
 
 }

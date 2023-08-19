@@ -7,7 +7,7 @@ const MyTabScreen = (props) => {
             options={{
                 ...props.options,
                 labelStyle: {
-                    fontFamily: 'my-custom-font'
+                    fontFamily: 'roboto-medium'
                 }
             }}
         />

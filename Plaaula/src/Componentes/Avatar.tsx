@@ -22,7 +22,7 @@ React.useEffect(() => {
     pegaFoto();
 
  
-},[isFocused]);
+},[isFocused,id]);
 
 
     return(
