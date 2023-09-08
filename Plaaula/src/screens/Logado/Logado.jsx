@@ -6,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import AvatarImage from "../../Componentes/Avatar";
 import { UserContext } from "../../assets/contexts/Context";
 import { PegarNome } from "../../Banco/Consulta";
+import { deleteAtividadeStorage } from "../../Banco/Delete";
 
 
 
@@ -18,11 +19,13 @@ function Logado({ navigation }) {
        
           
           setNome(await PegarNome(id));
-          // Save the fetched nome to state here
+        
         }
         fetchData();
       }, [id,isFocused]);
-      
+  
+
+
     const AppDrawer = () => {
 
 
@@ -65,6 +68,7 @@ function Logado({ navigation }) {
         }];
         return <Box flex={1}>
             <Heading style={{ textAlign: 'center' }} >Bem vindo(a) {nome.toUpperCase()}</Heading>
+
             <FlatList flex={1} mt={"1.5"} numColumns={3} data={icons} renderItem={({
                 item
             }) => {
@@ -77,6 +81,7 @@ function Logado({ navigation }) {
                                 <Icon color="white" name={item.name} as={MaterialIcons} size="2xl" />
                             }
                         />
+                                   
                         <Text fontSize={"xl"}>{item.title}</Text>
                     </Center>
                 </Box>
@@ -86,7 +91,7 @@ function Logado({ navigation }) {
 
     return (
         <View flex={1} bgColor="violet.26">
-
+{console.log()}
             <HStack >
 
                 <AvatarImage onTouchStart={() => navigation.navigate('ImagemPerfil')} ></AvatarImage>

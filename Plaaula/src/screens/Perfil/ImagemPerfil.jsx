@@ -160,7 +160,7 @@ function ImagemPerfil({ navigation }) {
                         fontSize:"lg",
                      
                     }} bg={'cadastrar.1'} fontFamily="bold" 
-                    marginBottom='1/2' size={"lg"} mt={"1/6"}>Mudar Foto do Perfil
+                    size={"lg"} mt={"1/6"}>Mudar Foto do Perfil
                     </base.Button>
 
                 </base.Center>
@@ -175,7 +175,7 @@ function ImagemPerfil({ navigation }) {
                 :
                 (flag && <base.Center>
                 <base.Button onPress={handleImagem} rounded='md'
-                    bg={'cadastrar.1'} width={"4/5"} fontFamily="choco" marginBottom='1/2'  >
+                    bg={'cadastrar.1'} width={"4/5"} fontFamily="choco" marginTop='1/6'  >
                     <base.Text>Cadastrar Imagem</base.Text>
                 </base.Button>
                 </base.Center>

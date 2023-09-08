@@ -16,7 +16,7 @@ import { CadDescricaoSchema } from "../../assets/ValidacaoSchema";
 import { Input } from "../../Componentes/Input";
 import { TextArea } from "../../Componentes/TextArea";
 import UpdateAtividade from "../../Banco/Update";
-import DeleteAtividade from "../../Banco/Delete";
+import DeleteAtividade, { deleteAtividadeStorage } from "../../Banco/Delete";
 import GerarPDF from "../../assets/functions/GerarPDF";
 
 export default function MeuDetalhe({ navigation }){
@@ -84,6 +84,8 @@ const html = `
   
 `;
   
+
+
   const handleAtt = (data)=>{
 
 //UpdateAtividade(ativDado.atividade.ID,data)
@@ -106,7 +108,7 @@ const html = `
   }
   const deleta = ()=>{
     DeleteAtividade(ativDado.atividade.ID,id)
-    navigation.navigate('MinhaAtividade')
+    navigation.navigate('Logado')
   }
 
     React.useEffect(() => {
@@ -327,7 +329,6 @@ cancelar
     </Box>
 
 
-
 <View flex={1} bgColor="violet.25">
   
     <ScrollView>
@@ -402,7 +403,7 @@ cancelar
        {ativDado.atividade.metodologia}
         
 </Text>
-{console.log(ativDado)}
+
 </View>
 </Box>
 </ScrollView>

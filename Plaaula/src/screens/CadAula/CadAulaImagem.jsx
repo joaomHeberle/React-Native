@@ -8,7 +8,7 @@ import * as IMAGEPICKER from 'expo-image-picker'
 import BarraInput from '../../Componentes/BarraInput';
 
 import { AtivContext } from '../../assets/contexts/AtividadeContext';
-import { BlankImage } from '../../assets/imgUri/BlankImage';
+import { BlankImage,imgDataBlank } from '../../assets/imgUri/BlankImage';
 
 
 export default function CadAulaImagem({ navigation }) {
@@ -100,7 +100,33 @@ export default function CadAulaImagem({ navigation }) {
 
     navigation.navigate('Inicio')
     }
+    function handleCadAtividadeSemFoto() {
+      
+            let imagem = imgDataBlank+""
+           let Dados = {
 
+                //ID: uuid.v4(),
+                titulo: ativDado.atividade.titulo,
+                isPublic: true,
+                foto: imagem,
+                metodologia: ativDado.atividade.metodologia,
+                componente: ativDado.atividade.componente,
+                ano: ativDado.atividade.ano,
+                objetosConhecimento: ativDado.atividade.objetosConhecimento,
+                habilidades: ativDado.atividade.habilidades,
+                criadoEm: new Date(),
+                duracao: ativDado.atividade.duracao
+             }
+             console.log(Dados)
+             cadastraAtividade(Dados,id)
+
+             navigation.navigate('Inicio')
+        }
+       
+
+
+
+    
 
     const pickImage = async () => {
         let result = await IMAGEPICKER.launchImageLibraryAsync({
@@ -136,11 +162,9 @@ export default function CadAulaImagem({ navigation }) {
                 criadoEm: new Date(),
                 duracao: ativDado.atividade.duracao
              }
-             //console.log(Dados)
+             console.log(Dados)
              handleCadAtividade(Dados)
        
-        }else{
-            console.log("nao entrou")
         }
      
       
@@ -179,8 +203,17 @@ export default function CadAulaImagem({ navigation }) {
                         :
                         (flag && <Button onPress={handleImagem} rounded='md'
                             bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
-                            <Text>Cadastrar Imagem</Text>
+                            <Text>Cadastrar Atividade</Text>
                         </Button>)
+                        ?    (flag && <Button onPress={handleImagem} rounded='md'
+                        bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
+                        <Text>Cadastrar Atividade</Text>
+                    </Button>)
+                    :
+                    <Button onPress={handleCadAtividadeSemFoto} rounded='md'
+                        bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
+                        <Text>Cadastrar sem imagem</Text>
+                    </Button>
                     }
 
                     {/* <Button
