@@ -1,4 +1,4 @@
-import { Center, VStack, Text, View, Button, Spinner, Image } from 'native-base';
+import { Center, VStack, Text, View, Button, Spinner, Image, Switch } from 'native-base';
 import storage from '@react-native-firebase/storage';
 import { Alert, Platform } from 'react-native'
 import React, { useState, useEffect } from 'react';
@@ -25,10 +25,11 @@ export default function CadAulaImagem({ navigation }) {
     const [uploading, setUploading] = useState(false);
     const [url, setUrl] = useState("teste");
     const [dado,setDado]= useState()
+    const [isPublic, setIsPublic] = useState(false);
 
-    // const { control, handleSubmit,watch, formState: { errors } } = useForm({
-    //    // resolver: yupResolver(cadProfSchema)
-    // });
+    const togglePublication = () => {
+      setIsPublic(!isPublic);
+    };
 
 
     async function imagemStorage(img) {
@@ -54,7 +55,7 @@ export default function CadAulaImagem({ navigation }) {
         task.snapshot.ref.getDownloadURL().then( function(url_imagem){
            setUrl(url_imagem)
 
-           // console.log(url_imagem)
+          
 
         })
 
@@ -107,7 +108,7 @@ export default function CadAulaImagem({ navigation }) {
 
                 //ID: uuid.v4(),
                 titulo: ativDado.atividade.titulo,
-                isPublic: true,
+                isPublic: isPublic,
                 foto: imagem,
                 metodologia: ativDado.atividade.metodologia,
                 componente: ativDado.atividade.componente,
@@ -152,7 +153,7 @@ export default function CadAulaImagem({ navigation }) {
 
                 //ID: uuid.v4(),
                 titulo: ativDado.atividade.titulo,
-                isPublic: true,
+                isPublic: isPublic,
                 foto: url,
                 metodologia: ativDado.atividade.metodologia,
                 componente: ativDado.atividade.componente,
@@ -193,7 +194,12 @@ export default function CadAulaImagem({ navigation }) {
                     <Image width={'32'} height={'32'} alt='foto'
                         source={{ uri: image }} />
 
-
+<Text fontSize={'2xl'}>Salvar: {isPublic ? 'Público' : 'Privado'}</Text>
+      <Switch
+        value={isPublic}
+        onValueChange={togglePublication}
+        trackColor={{ true: 'green', false: 'red' }} 
+      />
                     {uploading ?
                         (
                             <VStack space={2}>
@@ -209,23 +215,13 @@ export default function CadAulaImagem({ navigation }) {
                         bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
                         <Text>Cadastrar Atividade</Text>
                     </Button>)
-                    :
+                    : 
                     <Button onPress={handleCadAtividadeSemFoto} rounded='md'
                         bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
                         <Text>Cadastrar sem imagem</Text>
                     </Button>
                     }
 
-                    {/* <Button
-                        // onPress={handleSubmit(handleCadProf)}
-                        onPress={() => {
-                            console.log(url),
-                            handleCadAtividade()
-
-                        }}
-                        rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
-                        <Text>Ver imagem</Text>
-                    </Button> */}
 
 
 

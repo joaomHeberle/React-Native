@@ -1,6 +1,6 @@
 import { AspectRatio, Stack, Heading, Link, Box, Center, Text, FlatList, SectionList, Image, Button, HStack, Avatar, VStack, Spacer, Flex, ScrollView, Spinner } from "native-base";
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import test from "../../Banco/test.json"
 
 import _, { forEach } from "lodash";
@@ -16,7 +16,7 @@ import { Title } from "react-native-paper";
 import converteDate from "../../assets/functions/ConverteDate";
 import { isLoading } from "expo-font";
 import { AtivContext } from "../../assets/contexts/AtividadeContext";
-//const listaAtividades =test;
+
 
 
 export function ListAtividade() {
@@ -36,31 +36,15 @@ export function ListAtividade() {
 
 
   function listaAtivi() {
-    //console.log(atividade)
+
     atividade.forEach((val => {
-      //console.log(val);
+
       listaAti.push(val)
     }))
-    //console.log(listaAti)
+
     setListaAtividade([].concat(...listaAti))
     setLoading(false)
   }
-  //setAtividade(listaAtividades)
-  //     const FilteredList=_.filter(listaAtividades,{'Componente':'Matematica'})
-  //     .concat(_.filter(listaAtividades,{'Componente':'Lingua Portuguesa'}))
-  //    .concat(_.filter(listaAtividades,{'Componente':'Arte'}))
-
-  // const groupedList=_.chain(listaAtividades)
-  //     .groupBy('Componente')
-  //     .sortBy('titulo')    
-  //     .value();
-
-  //     console.log(groupedList)
-  // console.log(FilteredList)
-  //         const groupedList=_.chain(FilteredList)
-  //         .groupBy('Componente')
-  //         .sortBy('titulo')    
-  //         .value();
 
   const register = (item) => {
 
@@ -111,24 +95,24 @@ export function ListAtividade() {
 
   function separaComponente(item) {
 
-    //console.log(listaAtividades)
+
     const filteredList = _.filter(listaAtividades, obj => {
       return _.has(obj, "componente") && _.includes(obj["componente"], item);
     })
-    //console.log(filteredList)
+
     return filteredList
   }
   function pegaCodigoHabilidade(item) {
     var codigo = item;
     const match = codigo.match(/\((.*?)\)/);
     const resultado = match ? match[1] : null;
-    // console.log(resultado)
+
     return resultado
   }
 
   async function verTodas() {
     let todas = await verTodasAtividades()
-    //console.log(todas)
+
 
   }
 
@@ -171,7 +155,7 @@ export function ListAtividade() {
                   item
                 }) =>
                   <Box paddingRight={"3"} alignItems="center" mb={"2"} mt={"2"}>
-                    <Box  onTouchStart={() => { navigation.navigate('DetalheAula'), montaContext(item) }} maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+                    <Box onTouchStart={() => { navigation.navigate('DetalheAula'), montaContext(item) }} maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
                       borderColor: "coolGray.600",
                       backgroundColor: "gray.700"
                     }} _web={{

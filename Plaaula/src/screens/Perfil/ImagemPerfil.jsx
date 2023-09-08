@@ -5,6 +5,7 @@ import { UserContext } from "../../assets/contexts/Context";
 import * as IMAGEPICKER from 'expo-image-picker'
 import { cadastrarFoto } from "../../Banco/Cadastros";
 import { Alert } from 'react-native'
+import AvatarImage from "../../Componentes/Avatar";
 
 
 

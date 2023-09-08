@@ -14,6 +14,7 @@ import { MinhaAtividade } from '../screens/Atividades/MinhaAtividade';
 import MeuDetalhe from '../screens/Atividades/MeuDetalhe';
 import RecuperarSenha from '../screens/Home/RecuperarSenha';
 import EditarNome from '../screens/Perfil/EditarNome';
+import ImprimirImagem from '../screens/Atividades/ImprimirImagem';
 
 
 
@@ -88,6 +89,17 @@ function MyNavigator(props) {
 }}
     />
 
+<Stack.Screen name="ImprimirImagem" component={ImprimirImagem} options={{
+        
+        headerTintColor: 'black',
+        headerStyle: { backgroundColor: colors.fundo[1] },      
+        headerTitleStyle:
+        {
+            fontFamily:'dance-Bold'
+        },
+        headerTitle:"Imprimir atividade"
+ }}
+     />
 <Stack.Screen name="ImagemPerfil" component={ImagemPerfil} options={{
         
        headerTintColor: 'black',

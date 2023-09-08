@@ -3,8 +3,8 @@ import {View, Box, Text,Image, ScrollView, Center, Button,Divider, Popover, HSta
 import { useRoute } from "@react-navigation/native";
 import {
 
-    Pressable,
     SafeAreaView,
+    TouchableOpacity,
 
   } from 'react-native';
   import { useForm, Controller } from "react-hook-form";
@@ -88,7 +88,7 @@ const html = `
 
   const handleAtt = (data)=>{
 
-//UpdateAtividade(ativDado.atividade.ID,data)
+UpdateAtividade(ativDado.atividade.ID,data)
     ativDado.setAtividade({
       titulo: data.titulo,
       isPublic: true,
@@ -341,8 +341,8 @@ cancelar
 <Divider backgroundColor={"amber.900"}/>
 
     <Center>
-         {imagem && <Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} 
-                />}
+         {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem',{img:imagem})}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
+              </TouchableOpacity>}
 </Center>
 <Divider backgroundColor={"amber.900"}/>
  <View flex={1} bgColor="purple.100">

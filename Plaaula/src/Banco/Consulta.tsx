@@ -95,9 +95,9 @@ export async function verTodasAtividades() {
   await atividadeCollection.get()
     .then((querySnapshot) => {
       querySnapshot.forEach((documentSnapshot) => {
-        // Obtenha os dados do documento
+   
         data.push(documentSnapshot.data());
-        // console.log(data);
+     
       });
 
     })
@@ -107,8 +107,12 @@ export async function verTodasAtividades() {
       Alert.alert("Aula", "Erro ao criar aula")
 
     });
-  //console.log(data)
-  return data;
+    const objetosPublicos = data.filter(objeto => objeto.isPublic === true);
+
+
+
+    
+  return objetosPublicos;
 
 
 

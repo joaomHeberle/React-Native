@@ -154,9 +154,6 @@ export function MinhaAtividade() {
         />
 
 
-
-        {/* <Button onPress={verAtividades}> ver atividade</Button> */}
-
       </Box>
 
     </SafeAreaView>

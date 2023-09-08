@@ -5,18 +5,13 @@ import {
 
     Pressable,
     SafeAreaView,
-
+    TouchableOpacity
   } from 'react-native';
   import { useForm, Controller } from "react-hook-form";
 import { AtivContext } from "../../assets/contexts/AtividadeContext";
-import { busca } from "../../Banco/Consulta";
 import { UserContext } from "../../assets/contexts/Context";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CadDescricaoSchema } from "../../assets/ValidacaoSchema";
-import { Input } from "../../Componentes/Input";
-import { TextArea } from "../../Componentes/TextArea";
-import UpdateAtividade from "../../Banco/Update";
-import DeleteAtividade from "../../Banco/Delete";
 import GerarPDF from "../../assets/functions/GerarPDF";
 
 export default function DetalheAula({ navigation }){
@@ -27,18 +22,11 @@ export default function DetalheAula({ navigation }){
     const route = useRoute();
     const [imagem, setImagem] = React.useState();
     const ativDado = React.useContext(AtivContext)
-    const { id } = React.useContext(UserContext);
-    const [isOpenDel, setIsOpenDel] = React.useState(false);
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [showModal, setShowModal] = React.useState(false);
-    const [showModal2, setShowModal2] = React.useState(false);
-    const [showModal3, setShowModal3] = React.useState(false);
 
     const { control, register, handleSubmit, formState: { errors } } = useForm({
       resolver: yupResolver(CadDescricaoSchema)
   });
 
- 
 
     React.useEffect(() => {
         setImagem(ativDado.atividade.foto);
@@ -58,14 +46,14 @@ export default function DetalheAula({ navigation }){
         <Box  marginBottom={"1.5"} marginRight={"1"}>
         <Text color={"cadastrar.1"} ml={5} my={30} textAlign='center' fontSize={"4xl"}
     fontFamily="bold">
-       
+     
         Componente: {ativDado.atividade.componente}
 </Text>
 <Divider backgroundColor={"amber.900"}/>
 
     <Center>
-         {imagem && <Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} 
-                />}
+    {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem',{img:imagem})}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
+              </TouchableOpacity>}
 </Center>
 <Divider backgroundColor={"amber.900"}/>
  <View flex={1} bgColor="purple.100">

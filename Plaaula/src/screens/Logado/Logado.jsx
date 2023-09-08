@@ -35,16 +35,17 @@ function Logado({ navigation }) {
             title: 'Arte'
         }, {
             name: 'folder',
-            bg: 'emerald.600',
+            bg: 'purple.800',
             title: 'Ciências'
         }, {
             name: 'folder',
             bg: 'blue.600',
-            title: 'E.R.'
+           
+            title: 'Ed. Física'
         }, {
             name: 'folder',
             bg: 'violet.600',
-            title: 'Ed. Física'
+            title: 'E. Religioso'
         }, {
             name: 'folder',
             bg: 'lime.600',
@@ -91,7 +92,7 @@ function Logado({ navigation }) {
 
     return (
         <View flex={1} bgColor="violet.26">
-{console.log()}
+
             <HStack >
 
                 <AvatarImage onTouchStart={() => navigation.navigate('ImagemPerfil')} ></AvatarImage>
