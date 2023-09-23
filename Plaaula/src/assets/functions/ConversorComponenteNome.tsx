@@ -7,8 +7,7 @@ import BNCCEFJson from '../../Banco/BNCC banco/ED.F/yqqg1-osp1l.json';
 import BNCCGeoJson from '../../Banco/BNCC banco/GEO/xqvro-jdhe2.json';
 import BNCCHisJson from '../../Banco/BNCC banco/his/oc1bi-e7uey.json';
 import BNCCLIJson from '../../Banco/BNCC banco/Lin. Inglesa/wi4kz-hvz8h.json';
-import BNCCMatJson from '../../Banco/BNCC banco/LP/1jc9q-f8otp.json';
-
+import BNCCMatJson from '../../Banco/BNCC banco/MAT/b1vyt-35n0q.json';
 
 export function converteNomeParaOJson(componente:string) {
     switch (componente) {
@@ -45,7 +44,7 @@ export function converteNomeParaOJson(componente:string) {
 }
 export function converteNomeParaMinhaAtividade(componente:string) {
     switch (componente) {
-        case "E.R.":
+        case "E. Religioso":
             return "Ensino Religioso";
             break;
         case "Ed. Física":
@@ -54,7 +53,7 @@ export function converteNomeParaMinhaAtividade(componente:string) {
         case "L. Inglesa":
             return "Língua Inglesa";
             break;
-        case "L. Portuguesa":
+        case "Português":
             return "Língua Portuguesa";
             break;
      

@@ -6,7 +6,6 @@ import BarraInput from '../../Componentes/BarraInput';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cadAulaBnccSchema } from '../../assets/ValidacaoSchema';
 import { AtivContext } from '../../assets/contexts/AtividadeContext';
-import { set } from 'lodash';
 
 
 export default function CadAulaBncc({ navigation, proximo }) {
@@ -61,7 +60,7 @@ export default function CadAulaBncc({ navigation, proximo }) {
         const selectedComponenteValue = watch("Componente")
         const selectedAnoValue = watch("Ano")
         objeto1ao5()
-      
+      console.log(selectedComponenteValue)
         if (selectedComponenteValue && selectedAnoValue) {
             var anoBuffer = selectedAnoValue
             var ano = anoBuffer.substring(0, 2)

@@ -128,7 +128,7 @@ export function MinhaAtividade() {
                     color: "violet.400"
                   }} fontWeight="500" ml="-0.5" mt="-1">
                     {pegaCodigoHabilidade(item.habilidades)}
-                    {/* {item.habilidades} */}
+            
 
                   </Text>
                 </Stack>

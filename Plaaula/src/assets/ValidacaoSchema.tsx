@@ -62,6 +62,12 @@ export const cadAulaBnccSchema = yup.object({
    .min(1,"Escolha uma opção"),
 
 });
+export const altAulaSchema = yup.object({
+   duracao: yup.string()
+       .required("Escolha uma opção"),
+
+
+});
 
 export const CadDescricaoSchema = yup.object({
     duracao: yup.number()
@@ -71,10 +77,15 @@ export const CadDescricaoSchema = yup.object({
        .positive("Numero precisa ser maior que 1")
        .integer("Deve ser um numero inteiro")
        .typeError("Duração deve ser um numero")
-       ,
+       
 
-//    senha: yup.string()
-//        .required("Digite uma senha")
-//        .min(8, "Senha deve ter no minino 8 caracteres"),
+
+});
+export const AltDescricaoSchema = yup.object({
+    duracao:  yup.string()
+    .matches(/^[1-9]|[1-5][0-9]|60$/, 'Digite um número válido de 1 a 60')
+    .required("Digite uma duração valida")
+       
+
 
 });

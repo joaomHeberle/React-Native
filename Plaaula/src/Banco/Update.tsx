@@ -33,7 +33,7 @@ export async function UpdateNome(id:string,nome:string ,{navigation}){
 
   const aula = await usuarioCollection.doc(id)
   .update({nome:nome}).then(() => {
-      //console.log('Foto cadastrada');
+     
       Alert.alert("Nome","Nome atualizado com sucesso")
       navigation.navigate('Inicio');
     })
@@ -80,4 +80,27 @@ export async function recuperaSenha(email:string,{navigation}){
     Alert.alert("Email", "Email invalido/não cadastrado" )
 
 })
+}
+
+
+export async function alterarImagemAtividade(id:string,imagem:any,{navigation}){
+
+  const aula = await atividadeCollection.doc(id)
+  .update({foto:imagem}).then(() => {
+     
+      Alert.alert("Imagem","Imagem atualizada com sucesso")
+      navigation.navigate('Inicio');
+    })
+    .catch((error) =>  {
+      var erro = error+""
+      if (erro.includes("firestore/not-found")) {
+      Alert.alert("Imagem", "Usuario não existe" )
+    }else{
+      Alert.alert(error)
+    }
+    });
+
+//     console.log(id)
+// console.log(imagem)
+
 }

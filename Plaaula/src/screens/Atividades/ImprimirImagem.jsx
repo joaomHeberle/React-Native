@@ -67,6 +67,13 @@ export default function ImprimirImagem({ navigation, route }) {
                         size={"lg"} mt={"1/6"}>Imprimir
                     </base.Button>
 
+                    <base.Button onPress={() => navigation.navigate('AltImagemAula', { img: image })} rounded='md' _text={{
+                        color: "black",
+                        fontSize: "lg",
+
+                    }} bg={'cadastrar.1'} fontFamily="bold"
+                        size={"lg"} mt={"1/6"}>Substituir
+                    </base.Button>
                 </base.Center>
 
             </base.Box>

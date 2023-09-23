@@ -15,6 +15,7 @@ import MeuDetalhe from '../screens/Atividades/MeuDetalhe';
 import RecuperarSenha from '../screens/Home/RecuperarSenha';
 import EditarNome from '../screens/Perfil/EditarNome';
 import ImprimirImagem from '../screens/Atividades/ImprimirImagem';
+import AltImagemAula from '../screens/CadAula/AltImagemAula';
 
 
 
@@ -97,9 +98,11 @@ function MyNavigator(props) {
         {
             fontFamily:'dance-Bold'
         },
-        headerTitle:"Imprimir atividade"
+        headerTitle:"Imprimir/Editar Imagem"
  }}
      />
+
+
 <Stack.Screen name="ImagemPerfil" component={ImagemPerfil} options={{
         
        headerTintColor: 'black',
@@ -166,6 +169,15 @@ function MyNavigator(props) {
            fontFamily:'dance-Bold'
        },
        headerTitle:"Cadastro"
+}} />
+<Stack.Screen name="AltImagemAula" component={AltImagemAula} initialParams={props.ID} options={{
+     
+     headerTintColor: 'black',
+     headerStyle: { backgroundColor: colors.violet[26]   },      
+     headerTitleStyle:{
+         fontFamily:'dance-Bold'
+     },
+     headerTitle:"Editar imagem"
 }} />
 
 </Stack.Navigator>

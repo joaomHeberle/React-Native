@@ -1,18 +1,25 @@
 import * as React from "react";
-import { View, Text, VStack, Button, Center, HStack, Link } from "native-base";
+import { View, Text, VStack, Button, Center, HStack, Link, Icon, Pressable } from "native-base";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from '../../Componentes/Input';
 import { autenticacaoEmail } from '../../Banco/Auth'
 import { useForm, Controller } from "react-hook-form";
 import { homeSchema } from '../../assets/ValidacaoSchema'
 import { MotiView } from 'moti'
-
+import { TouchableOpacity } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 export default function Home({ navigation }) {
+  const [showPassword, setShowPassword] = React.useState(false);
+
   //validação
   const { control, handleSubmit, formState: { errors } } = useForm({
 
     resolver: yupResolver(homeSchema)
   });
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   function handleCadProf(data) {
     if (data) {
 
@@ -21,6 +28,12 @@ export default function Home({ navigation }) {
     }
 
   }
+  React.useEffect(() => { 
+    console.log(showPassword)
+
+  }, [showPassword]);
+
+
   return (
 
     <MotiView style={{ flex: 1 }}
@@ -78,7 +91,8 @@ export default function Home({ navigation }) {
                     title="Email"
                     onChangeText={onChange}
                     errorMessage={errors.email?.message}
-                  />
+                    InputLeftElement={<Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="black" />} />
+                
 
                 )}
 
@@ -107,22 +121,25 @@ export default function Home({ navigation }) {
 
                   <Input
 
-                    autoCapitalize='words'
+                  
                     autoComplete='off'
                     returnKeyType='done'
                     title="Senha"
-
+                    type={showPassword?"text":"password"}
                     paddingX="10"
                     onChangeText={onChange}
                     requerido={true}
                     errorMessage={errors.senha?.message}
-                  />
-
+                    InputRightElement={<Pressable onPress={() => {setShowPassword(!showPassword)}}>
+                    <Icon as={
+                    <MaterialIcons name={showPassword ? "visibility" : "visibility-off"} />}
+                     size={5} mr="2" color="black" />
+                  </Pressable>}  />
+                    
                 )}
 
               />
-
-
+ 
             </MotiView>
 
 
@@ -157,7 +174,7 @@ export default function Home({ navigation }) {
                   <Text fontSize="3xl" color="coolGray.900" _dark={{
                     color: "warmGray.200"
                   }}>
-                    Novo usuario.{" "}
+                
                   </Text>
                   <Link _text={{
                     color: "indigo.500",
@@ -169,7 +186,7 @@ export default function Home({ navigation }) {
 
                   }
                   >
-                    Crie sua conta
+                       Novo usuario
                   </Link>
                 </HStack>
 

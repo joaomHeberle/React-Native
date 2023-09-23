@@ -6,7 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import AvatarImage from "../../Componentes/Avatar";
 import { UserContext } from "../../assets/contexts/Context";
 import { PegarNome } from "../../Banco/Consulta";
-import { deleteAtividadeStorage } from "../../Banco/Delete";
+
 
 
 
@@ -61,7 +61,7 @@ function Logado({ navigation }) {
         }, {
             name: 'folder',
             bg: 'darkBlue.600',
-            title: 'L. Portuguesa'
+            title: 'Português'
         }, {
             name: 'folder',
             bg: 'emerald.600',
@@ -96,9 +96,10 @@ function Logado({ navigation }) {
             <HStack >
 
                 <AvatarImage onTouchStart={() => navigation.navigate('ImagemPerfil')} ></AvatarImage>
-                {/* <Avatar onTouchStart={() => navigation.navigate('ImagemPerfil')} size="lg" source={{ uri: image }} /> */}
 
-                <Text alignItems="center" m="2" paddingLeft={"10"} fontSize={"3xl"} fontFamily="bold">Minhas Atividades</Text>
+                <Text alignItems="center" m="2"  fontSize={"3xl"} fontFamily="bold">
+                    Minhas Atividades
+                    </Text>
 
 
 
