@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 export const AtivContext = React.createContext({});
 
 export function AtividadeProvider({children}){
- 
+
     const [atividade,setAtividade] = useState({
-        ID: "uuid.v4()",
+        ID: "route.params.ID",
         titulo: "route.params.titulo",
-        isPublic: "true",
+        isPublic: "route.params.isPublic",
         foto: "url",
         metodologia: "route.params.metodologia",
         componente: "route.params.componente",

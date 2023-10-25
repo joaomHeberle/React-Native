@@ -16,7 +16,7 @@ import RecuperarSenha from '../screens/Home/RecuperarSenha';
 import EditarNome from '../screens/Perfil/EditarNome';
 import ImprimirImagem from '../screens/Atividades/ImprimirImagem';
 import AltImagemAula from '../screens/CadAula/AltImagemAula';
-
+import ImprimirImagemGeral from '../screens/Atividades/ImprimirImagemGeral';
 
 
 
@@ -99,6 +99,17 @@ function MyNavigator(props) {
             fontFamily:'dance-Bold'
         },
         headerTitle:"Imprimir/Editar Imagem"
+ }}
+     />
+     <Stack.Screen name="ImprimirImagemGeral" component={ImprimirImagemGeral} options={{
+        
+        headerTintColor: 'black',
+        headerStyle: { backgroundColor: colors.fundo[1] },      
+        headerTitleStyle:
+        {
+            fontFamily:'dance-Bold'
+        },
+        headerTitle:"Imprimir Imagem"
  }}
      />
 

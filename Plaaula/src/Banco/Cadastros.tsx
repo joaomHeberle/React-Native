@@ -2,7 +2,7 @@ import Auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import BNCCJson from './BNCC banco/LP/1jc9q-f8otp.json';
-import { UpdateAtividadeId} from './Update';
+import { UpdateAtividadeId } from './Update';
 
 
 
@@ -11,23 +11,23 @@ import { UpdateAtividadeId} from './Update';
 const bnccCollection = firestore().collection('BNCC');
 const usuarioCollection = firestore().collection('Usuario');
 const atividadeCollection = firestore().collection('Atividade');
-export function CadastrarProfessor(email: string, senha: string, nome: string,{navigation}): Promise<boolean> {
+export function CadastrarProfessor(email: string, senha: string, nome: string, { navigation }): Promise<boolean> {
   return new Promise((resolve, reject) => {
-   
+
     Auth()
       .createUserWithEmailAndPassword(email, senha)
-      .then((result) => { 
-        Alert.alert("Conta", "Cadastrada com sucesso" ),
-        CadastrarUsuario(result.user.uid, nome)
+      .then((result) => {
+        Alert.alert("Conta", "Cadastrada com sucesso"),
+          CadastrarUsuario(result.user.uid, nome)
         navigation.navigate('Logado');
-     
+
         resolve(false);
       })
       .catch((error) => {
-        var erro = error+"";
-       
+        var erro = error + "";
+
         if (erro.includes("auth/email-already-in-use")) {
-          Alert.alert("Conta", "Erro Usuario ja existe" )
+          Alert.alert("Conta", "Erro Usuario ja existe")
         }
         resolve(true);
       })
@@ -37,9 +37,11 @@ function CadastrarUsuario(uid: string, nome: string) {
 
   usuarioCollection
     .doc(uid)
-    .set({ nome: nome,
-    foto_Perfil:"",
-  atividade:[] })
+    .set({
+      nome: nome,
+      foto_Perfil: "",
+      atividade: []
+    })
     .then(() => {
       console.log('criado Usuario na atividade');
     })
@@ -47,15 +49,15 @@ function CadastrarUsuario(uid: string, nome: string) {
 
 }
 
-export function cadastrarFoto(uid:string, foto:string){
-//console.log(foto.foto)
+export function cadastrarFoto(uid: string, foto: string) {
+  //console.log(foto.foto)
   usuarioCollection
-  .doc(uid)
-  .set({ foto_Perfil: foto.foto },{merge:true})
-  .then(() => {
-    console.log('Foto cadastrada');
-  })
-  .catch((error) => Alert.alert(error));
+    .doc(uid)
+    .set({ foto_Perfil: foto.foto }, { merge: true })
+    .then(() => {
+      console.log('Foto cadastrada');
+    })
+    .catch((error) => Alert.alert(error));
 }
 
 
@@ -78,7 +80,7 @@ export function CadastrarBNCC() {
       });
   }
 }
-export async function lerAtividades(id:string) {
+export async function lerAtividades(id: string) {
 
   const atividades = await usuarioCollection.doc(id).get();
 
@@ -86,7 +88,7 @@ export async function lerAtividades(id:string) {
     return false;
   return atividades._data.atividade;
 }
-async function pegaNome(id:string) {
+async function pegaNome(id: string) {
 
   const buffer = await usuarioCollection.doc(id).get();
 
@@ -96,22 +98,22 @@ async function pegaNome(id:string) {
   return nome;
 }
 
-export function cadastraAtividade(data:any,id:string){
+export function cadastraAtividade(data: any, id: string) {
 
   atividadeCollection
-  .add(data)
-  .then((result) => {
-    console.log('Atividade cadastrada com sucesso');
-//console.log(result._documentPath._parts[1])
-CadastrarAtividade(id,result._documentPath._parts[1])
-UpdateAtividadeId(result._documentPath._parts[1])
-  })
-  .catch((error) => Alert.alert(error));
+    .add(data)
+    .then((result) => {
+      Alert.alert('Atividade','Atividade cadastrada com sucesso');
+      //console.log(result._documentPath._parts[1])
+      AdicionaIdAoUsuario(id, result._documentPath._parts[1])
+      UpdateAtividadeId(result._documentPath._parts[1])
+    })
+    .catch((error) => Alert.alert(error));
 
 }
 
 
-export async function CadastrarAtividade(id:string, data:any) {
+export async function AdicionaIdAoUsuario(id: string, data: any) {
   const atiBuffer = await lerAtividades(id);
 
 
@@ -123,8 +125,8 @@ export async function CadastrarAtividade(id:string, data:any) {
     usuarioCollection
       .doc(id)
       .set({
-      atividade: [...atiBuffer, data]
-      },{merge:true})
+        atividade: [...atiBuffer, data]
+      }, { merge: true })
       .then(() => {
         console.log('Atividade adicionada com sucesso');
       })
@@ -134,8 +136,8 @@ export async function CadastrarAtividade(id:string, data:any) {
     usuarioCollection
       .doc(id)
       .set({
-      atividade: [data]
-      },{merge:true})
+        atividade: [data]
+      }, { merge: true })
 
       .then(() => {
         console.log('Atividade adicionada com sucesso');

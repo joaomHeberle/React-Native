@@ -7,6 +7,7 @@ import AvatarImage from "../../Componentes/Avatar";
 import { PegarNome } from "../../Banco/Consulta";
 import { Entypo } from "@expo/vector-icons";
 import { useIsFocused } from '@react-navigation/native';
+import { deletarConta } from "../../Banco/Delete";
 
 
 function Perfil({ navigation }) {
@@ -59,12 +60,16 @@ function Perfil({ navigation }) {
             setImage(imgData)
         }
 
-    }
-    const [image, setImage] = React.useState(imgData);
-    const signOut = () => {
+    },
+     [image, setImage] = React.useState(imgData),
+    signOut = () => {
         sair({ navigation });
         navigation.navigate('Home')
+    }, deletar =() =>{
+
+            deletarConta(id)
     }
+    
     React.useEffect(() => {
         async function fetchData() {
 
@@ -93,6 +98,7 @@ function Perfil({ navigation }) {
                 <base.VStack mt={'1/2'}>
 
                     <AvatarImage onTouchStart={() => navigation.navigate('ImagemPerfil')} >
+                     
                     </AvatarImage>
                     <base.Heading fontSize={"5xl"}
                         style={{ textAlign: 'center' }}>{nome.toUpperCase()}
@@ -122,12 +128,14 @@ function Perfil({ navigation }) {
 
 
                 </base.VStack>
-
+                <base.Button  onPress={signOut} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
+                        <base.Text>Sair</base.Text>
+                    </base.Button >
+                    <base.Button  onPress={deletar} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
+                        <base.Text>Deletar Conta</base.Text>
+                    </base.Button >
             </base.Box>
-            <base.Button onPress={
-                signOut
-
-            }>Sair</base.Button>
+     
 
         </base.View>
     );

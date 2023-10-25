@@ -9,14 +9,16 @@ import {
   } from 'react-native';
   import { useForm, Controller } from "react-hook-form";
 import { AtivContext } from "../../assets/contexts/AtividadeContext";
-import { UserContext } from "../../assets/contexts/Context";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CadDescricaoSchema } from "../../assets/ValidacaoSchema";
 import GerarPDF from "../../assets/functions/GerarPDF";
 
+
+
 export default function DetalheAula({ navigation }){
 
-  
+ 
 
 
     const route = useRoute();
@@ -26,8 +28,53 @@ export default function DetalheAula({ navigation }){
     const { control, register, handleSubmit, formState: { errors } } = useForm({
       resolver: yupResolver(CadDescricaoSchema)
   });
+  const html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>Tabela</title>
+  </head>
+  <body>
+      <table border="1">
+      <caption style="font-size: 24pt; font-weight: bold;">Plano de aula</caption>
+          <tr>
+              <td  style="font-size: 22pt; ">Titulo</td>
+              <td">${ativDado.atividade.titulo}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Duração</td>
+              <td>${ativDado.atividade.duracao}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Metodologia</td>
+              <td>${ativDado.atividade.metodologia}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Ano</td>
+              <td>${ativDado.atividade.ano}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Componente Curricular</td>
+              <td>${ativDado.atividade.componente}</td> 
+          </tr>
+          <tr>
+              <td style="font-size: 22pt;">Objetos de conhecimento</td>
+              <td>${ativDado.atividade.objetosConhecimento}</td> 
+          </tr>
+          <tr>
+          <td style="font-size: 22pt;">Habilidade</td>
+          <td>${ativDado.atividade.habilidades}</td> 
+      </tr>
+  </table>
+</body>
+</html>
+  
+  
+`;
 
-
+const imprimirPDF = () => {
+    GerarPDF(html);
+  }
     React.useEffect(() => {
         setImagem(ativDado.atividade.foto);
     
@@ -35,9 +82,10 @@ export default function DetalheAula({ navigation }){
 
     return (
         <SafeAreaView bgColor="violet.25" style={{ flex: 1 }}>
+             <Box w="100%" alignItems="center" bgColor="violet.26">
+ <Button size={"lg"} m={2} onPress={imprimirPDF} colorScheme="cyan">Imprimir</Button>
 
-
-
+ </Box>
 
 
 <View flex={1} bgColor="violet.25">
@@ -52,7 +100,7 @@ export default function DetalheAula({ navigation }){
 <Divider backgroundColor={"amber.900"}/>
 
     <Center>
-    {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem',{img:imagem})}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
+    {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagemGeral',{img:imagem})}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
               </TouchableOpacity>}
 </Center>
 <Divider backgroundColor={"amber.900"}/>
@@ -114,7 +162,6 @@ export default function DetalheAula({ navigation }){
        {ativDado.atividade.metodologia}
         
 </Text>
-{console.log(ativDado)}
 </View>
 </Box>
 </ScrollView>

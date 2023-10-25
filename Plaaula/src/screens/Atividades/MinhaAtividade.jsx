@@ -38,6 +38,7 @@ export function MinhaAtividade() {
   }
   const montaContext = (item) => {
     ativDado.setAtividade(item)
+    console.log(item)
   }
   const verAtividades = () => {
 
@@ -121,6 +122,7 @@ export function MinhaAtividade() {
                 <Stack space={2}>
                   <Heading size="xl" ml="-1">
                     {item.titulo}
+                  
                   </Heading>
                   <Text fontSize="xs" _light={{
                     color: "violet.500"

@@ -72,7 +72,7 @@ export default function CadAulaImagem({ navigation }) {
        
             setUploading(false);
 
-            Alert.alert("Imagem salva", "Imagem salva com sucesso");
+           // Alert.alert("Imagem salva", "Imagem salva com sucesso");
 
 
 

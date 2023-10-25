@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Box, CheckIcon, Text, Image, Select, ScrollView, Center, Button, Divider, Popover, HStack, Modal, VStack, Radio } from "native-base";
+import { View, Box, CheckIcon, Text, Image, Select, ScrollView, Center, Button, Divider, Popover, HStack, Modal, VStack, Radio, Switch } from "native-base";
 import { useRoute } from "@react-navigation/native";
 import {
 
@@ -22,7 +22,7 @@ import GerarPDF from "../../assets/functions/GerarPDF";
 export default function MeuDetalhe({ navigation }) {
 
 
-
+ 
   const route = useRoute();
   const [imagem, setImagem] = React.useState();
   const ativDado = React.useContext(AtivContext)
@@ -33,13 +33,16 @@ export default function MeuDetalhe({ navigation }) {
   const [showModal2, setShowModal2] = React.useState(false);
   const [showModal3, setShowModal3] = React.useState(false);
   const numeros = Array.from({ length: 60 }, (_, index) => index + 1);
-
+  const flag=ativDado.atividade.isPublic
+  console.log(ativDado.atividade.isPublic)
+  const [isPublic, setIsPublic] = React.useState(flag);
+ 
 
   const { control, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(altAulaSchema),
     defaultValues: {
-      duracao: ativDado.atividade.duracao, // Defina o valor padrão aqui
-      // outros campos do formulário
+      duracao: ativDado.atividade.duracao,
+      isPublic:ativDado.atividade.isPublic
     },
   });
   
@@ -56,8 +59,8 @@ export default function MeuDetalhe({ navigation }) {
       <table border="1">
       <caption style="font-size: 24pt; font-weight: bold;">Plano de aula</caption>
           <tr>
-              <td ">Titulo</td>
-              <td  style="font-size: 22pt;">${ativDado.atividade.titulo}</td> 
+              <td  style="font-size: 22pt;">Titulo</td>
+              <td ">${ativDado.atividade.titulo}</td> 
           </tr>
           <tr>
               <td style="font-size: 22pt;">Duração</td>
@@ -89,7 +92,10 @@ export default function MeuDetalhe({ navigation }) {
   
   
 `;
-
+const togglePublication = () => {
+  setIsPublic(!isPublic);
+ 
+};
   const imprimiAtt = (dado) => {
 
     if (dado.metodologia === undefined && dado.titulo === undefined) {
@@ -114,37 +120,38 @@ export default function MeuDetalhe({ navigation }) {
   }
 
   const handleAtt = (dado) => {
+console.log(dado)
+    // if (dado.metodologia === undefined && dado.titulo === undefined) {
+    //   dado.metodologia = ativDado.atividade.metodologia
+    //   dado.titulo = ativDado.atividade.titulo
 
-    if (dado.metodologia === undefined && dado.titulo === undefined) {
-      dado.metodologia = ativDado.atividade.metodologia
-      dado.titulo = ativDado.atividade.titulo
-
-    } else if (dado.titulo === undefined) {
-      dado.titulo = ativDado.atividade.titulo
-
-
-
-    } else if (dado.metodologia === undefined) {
-      dado.metodologia = ativDado.atividade.metodologia
-
-    }
-    dado.duracao = parseInt(dado.duracao)
-    console.log(dado)
+    // } else if (dado.titulo === undefined) {
+    //   dado.titulo = ativDado.atividade.titulo
 
 
-    //UpdateAtividade(ativDado.atividade.ID,dado)
-    ativDado.setAtividade({
-      titulo: dado.titulo,
-      isPublic: true,
-      foto: imagem,
-      metodologia: dado.metodologia,
-      componente: ativDado.atividade.componente,
-      ano: ativDado.atividade.ano,
-      objetosConhecimento: ativDado.atividade.objetosConhecimento,
-      habilidades: ativDado.atividade.habilidades,
-      criadoEm: ativDado.atividade.criadoEm,
-      duracao: dado.duracao
-    })
+
+    // } else if (dado.metodologia === undefined) {
+    //   dado.metodologia = ativDado.atividade.metodologia
+
+    // }
+    // dado.duracao = parseInt(dado.duracao)
+    // console.log(dado)
+   
+
+    // UpdateAtividade(ativDado.atividade.ID,dado)
+    // ativDado.setAtividade({
+    //   titulo: dado.titulo,
+    //   ID:ativDado.atividade.ID,
+    //   isPublic: dado.isPublic,
+    //   foto: imagem,
+    //   metodologia: dado.metodologia,
+    //   componente: ativDado.atividade.componente,
+    //   ano: ativDado.atividade.ano,
+    //   objetosConhecimento: ativDado.atividade.objetosConhecimento,
+    //   habilidades: ativDado.atividade.habilidades,
+    //   criadoEm: ativDado.atividade.criadoEm,
+    //   duracao: dado.duracao
+    // })
     setShowModal(false);
 
   }
@@ -233,31 +240,6 @@ export default function MeuDetalhe({ navigation }) {
 
                       </Controller>
 
-                      {/* {<Controller control={control}
-                                name="duracao"
-
-                                render={({ field: { onChange } }) => (
-
-                                    <Input
-                                        w={'1/5'}
-                                        maxLength={2}
-                                        keyboardType='numeric'
-                                        isRequired={true}
-                                        autoCapitalize='words'
-                                        autoComplete='off'
-                                        returnKeyType='done'
-                                        requerido={true}
-                                        title="Duração em Minutos"
-                                        onChangeText={onChange}
-                                        errorMessage={errors.duracao?.message}
-                                        defaultValue={""+ativDado.atividade.duracao}
-                                    />
-
-                                )}
-
-                            />
-                            
-                                } */}
                     </Center>
 
                     <Controller control={control}
@@ -277,7 +259,17 @@ export default function MeuDetalhe({ navigation }) {
                         />
                       )}
                     />
-
+<Text fontSize={'2xl'}></Text>
+<Controller control={control}
+  name="isPublic"
+  render={({ field}) => (
+      <Button 
+      backgroundColor={field.value ? 'green.500' : 'red.500'} 
+      onPress={()=>{field.onChange(!field.value)}}>
+        {field.value ?  'Público':'Privado'        }
+        </Button>
+      )}
+                 />
                   </Center>
                 </Modal.Body>
                 <Modal.Footer>
@@ -436,8 +428,30 @@ export default function MeuDetalhe({ navigation }) {
               {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem', { img: imagem })}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
               </TouchableOpacity>}
             </Center>
+            
             <Divider backgroundColor={"amber.900"} />
+            
             <View flex={1} bgColor="purple.100">
+            <Divider backgroundColor={"amber.900"} />
+          
+            {ativDado.atividade.isPublic ?<Text  ml={5} fontSize={"2xl"}
+                fontFamily="bold">
+                 Publico
+               
+              </Text>
+         
+              :
+           
+              <Text ml={5} fontSize={"2xl"}
+                fontFamily="bold">
+                 Privado
+               
+              </Text>
+              
+              }
+          
+              <Divider backgroundColor={"amber.900"} />
+             
               <Text ml={5} fontSize={"5xl"}
                 fontFamily="bold">
                 Titulo:

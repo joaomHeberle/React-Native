@@ -67,10 +67,11 @@ function Logado({ navigation }) {
             bg: 'emerald.600',
             title: 'Matemática'
         }];
-        return <Box flex={1}>
+        return       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
+      
             <Heading style={{ textAlign: 'center' }} >Bem vindo(a) {nome.toUpperCase()}</Heading>
 
-            <FlatList flex={1} mt={"1.5"} numColumns={3} data={icons} renderItem={({
+                <FlatList flex={1} mt={"1.5"} numColumns={3} data={icons} renderItem={({
                 item
             }) => {
                 return <Box>
@@ -86,7 +87,9 @@ function Logado({ navigation }) {
                         <Text fontSize={"xl"}>{item.title}</Text>
                     </Center>
                 </Box>
-            }} />;
+            }} />
+ 
+
         </Box>
     }
 
