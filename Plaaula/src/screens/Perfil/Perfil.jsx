@@ -8,11 +8,18 @@ import { PegarNome } from "../../Banco/Consulta";
 import { Entypo } from "@expo/vector-icons";
 import { useIsFocused } from '@react-navigation/native';
 import { deletarConta } from "../../Banco/Delete";
-
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { DeletaContaSchema } from "../../assets/ValidacaoSchema";
+import { Input } from "../../Componentes/Input";
 
 function Perfil({ navigation }) {
+    const { control, register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(DeletaContaSchema),
+     
+      });
     const [nome, setNome] = React.useState("")
-
+    const [isOpenDel, setIsOpenDel] = React.useState(false);
     const { id } = React.useContext(UserContext);
     const imgData = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/" +
         "2wBDAAYEBAQFBAYFBQYJBgUGCQsIBgYICwwKCgsKCgwQDAwMDAwMEAwOD" +
@@ -65,9 +72,10 @@ function Perfil({ navigation }) {
     signOut = () => {
         sair({ navigation });
         navigation.navigate('Home')
-    }, deletar =() =>{
-
-            deletarConta(id)
+    }, deletar =(dado) =>{
+// console.log(dado.senha)
+           deletarConta(dado.senha,id,{ navigation })
+          
     }
     
     React.useEffect(() => {
@@ -131,9 +139,54 @@ function Perfil({ navigation }) {
                 <base.Button  onPress={signOut} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
                         <base.Text>Sair</base.Text>
                     </base.Button >
-                    <base.Button  onPress={deletar} rounded='md' bg={'cadastrar.1'} fontFamily="choco" mt='100' mx={'3'} >
-                        <base.Text>Deletar Conta</base.Text>
-                    </base.Button >
+
+                    <base.Popover placement="bottom left" trigger={triggerProps => {
+            return <base.Button m={2} size={"lg"} colorScheme="danger" alignSelf="center" {...triggerProps} onPress={() => setIsOpenDel(true)}>
+              Deletar Conta
+            </base.Button>
+          }} isOpen={isOpenDel} onClose={() => setIsOpenDel(!isOpenDel)}>
+            <base.Popover.Content accessibilityLabel="Delete Customerd" w="56">
+              <base.Popover.Arrow />
+              <base.Popover.CloseButton onPress={() => setIsOpenDel(false)} />
+              <base.Popover.Header>Deletar Conta</base.Popover.Header>
+              <base.Popover.Body >
+                Você tem certeza que quer deletar sua conta ?
+                Após a exclusão é impossivel recuperar sua conta e atividades criadas.
+                <base.Center>
+                    <Controller control={control}
+                      name="senha"
+                      render={({ field: { onChange } }) => (
+                        <Input
+                          isRequired={true}
+                          autoCapitalize='words'
+                          autoComplete='off'
+                          returnKeyType='done'
+                          requerido={true}
+                          title="Senha da conta"
+                          onChangeText={onChange}
+                          errorMessage={errors.senha?.message}
+                          
+                        />
+                      )}
+                    />
+                    </base.Center>
+              </base.Popover.Body>
+              <base.Popover.Footer justifyContent="flex-end">
+
+                <base.Button.Group space={2}>
+                  <base.Button onPress={() => setIsOpenDel(false)} colorScheme="coolGray" variant="ghost">
+                    cancelar
+                  </base.Button>
+                  <base.Button onPress={
+                    handleSubmit(deletar)
+                  
+                  }
+                    colorScheme="danger">Deletar</base.Button>
+                </base.Button.Group>
+              </base.Popover.Footer>
+            </base.Popover.Content>
+          </base.Popover>
+            
             </base.Box>
      
 

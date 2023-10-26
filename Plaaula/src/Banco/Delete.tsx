@@ -2,8 +2,9 @@ import firestore from '@react-native-firebase/firestore';
 import { Alert } from 'react-native'
 
 import storage from '@react-native-firebase/storage';
-import _ from "lodash";
+import _, { forEach } from "lodash";
 import Auth from '@react-native-firebase/auth'
+import { sair } from './Auth';
 
 const bnccCollection = firestore().collection('BNCC');
 const usuarioCollection = firestore().collection('Usuario');
@@ -28,15 +29,13 @@ export default async function DeleteAtividade(idAtividade: string, idUsuario: st
 
 
 }
+
 async function deleteAtividadeStorage(link: string) {
-  // Referência ao arquivo que você deseja excluir
-  //const storageRef = storage().ref().child(link);
+
   let linkCerto = await arrumaLink(link)
 
   console.log(linkCerto)
-  let id = 2
-  let nome = 1
-
+ 
 
 
 
@@ -48,7 +47,7 @@ async function deleteAtividadeStorage(link: string) {
   storageRef.delete().then(() => {
     console.log('Arquivo excluído com sucesso.');
   }).catch((error) => {
-    console.error('Erro ao excluir o arquivo:', error);
+    console.error('Erro ao excluir a imagem:', error);
   });
 
 }
@@ -71,14 +70,95 @@ function arrumaLink(link: string) {
 
 }
 
-export async function deletarConta(id:string){
-  const usuario = Auth().currentUser.cre;
-  const credencial = Auth().cre;
+export async function deletarConta(Senha:String,id:string,{ navigation }){
+  const atividades = await usuarioCollection.doc(id).get();
+const email = Auth().currentUser.email;
+const user = Auth().currentUser;
+const credencial = Auth.EmailAuthProvider.credential(email, Senha);
+const att = atividades._data.atividade;
 
-  console.log(user)
-// Auth().currentUser.getIdToken(true);
-// Auth().currentUser.delete();
+const link = await linkAtividades(id)
+ await user.reauthenticateWithCredential(credencial).then(() => {
+  await user.delete().then(() => {
+  att.forEach(element => {
+   await DeleteAtividadeSemLink(element, id)
+  
+  });
+  
+  link.forEach(element=>{
+    await deleteAtividadeStorage(element)
+  })
+ await DeleteUsuario(id);
+  sair({ navigation });
+  navigation.navigate('Home')
+    console.log("deletado")
+  }).catch((error) => {
+    if(error.code=="auth/wrong-password"){
+      Alert.alert("senha invalida")
+    }
+   
+  });
+  
+}).catch((error)=>{
+  if(error.code=="auth/wrong-password"){
+    Alert.alert("senha invalida")
+  }else{
+    Alert.alert(error)
+  }
+
+});
+
+
+
 
 
 }
 
+async function DeleteUsuario(idUsuario: string) {
+
+
+
+
+ 
+  await usuarioCollection.doc(idUsuario).delete()
+    .then(() => {
+     
+      console.log("usuario deletado do firestore")
+    })
+    .catch((error) => Alert.alert(error));
+
+}
+async function DeleteAtividadeSemLink(idAtividade, idUsuario){
+  const atividades = await usuarioCollection.doc(idUsuario).get();
+  const att = atividades._data.atividade;
+
+  const removido = _.without(att, idAtividade)
+
+  await usuarioCollection.doc(idUsuario).update({ atividade: removido });
+  await atividadeCollection.doc(idAtividade).delete()
+    .then(() => {
+    
+  
+      Alert.alert("Sucesso", "atividade deletada com sucesso")
+    })
+    .catch((error) => Alert.alert(error));
+
+
+}
+async function linkAtividades(id: string) {
+
+
+  const atividades = await usuarioCollection.doc(id).get();
+  let aulas = [];
+
+  const att = atividades._data.atividade;
+
+  for (const idAtividade of att) {
+    const aula = await atividadeCollection.doc(idAtividade).get();
+    aulas.push(aula._data.foto);
+  }
+
+  return aulas
+
+
+}

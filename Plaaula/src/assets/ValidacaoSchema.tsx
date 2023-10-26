@@ -4,7 +4,7 @@ import * as yup from 'yup';
 
 export const cadProfSchema = yup.object({
     nome: yup.string()
-        .matches(/[^a-zA-Z\wÀ-ú ]/g, "Nome deve conter apenas letras")
+        .matches(/^[a-zA-ZÀ-ú]*[a-zA-ZÀ-ú][a-zA-ZÀ-ú ]*$/, "Nome deve conter apenas letras")
         .required("Digite um Nome")
         .min(2, "Nome deve ter no mínimo 2 caracteres")
         .max(30, "Nome deve ter no máximo 30 caracteres"),
@@ -88,3 +88,10 @@ export const CadDescricaoSchema = yup.object({
        .min(2, "Metodologia deve ter no mínimo 2 caracteres")
        });
 
+       export const DeletaContaSchema = yup.object({
+        senha: yup.string()
+        .required("Digite sua senha de acesso")
+        .min(8, "Senha deve ter no mínimo 8 caracteres"),
+});
+          
+        

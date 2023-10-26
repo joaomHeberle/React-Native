@@ -284,7 +284,7 @@ console.log(dado)
               Continuar
             </Button> */}
                   <Button flex="1"
-                    //onPress={handleSubmit(handleAtt)}
+                 
                     onPress={handleSubmit(handleAtt)}
                   >
                     Continuar
