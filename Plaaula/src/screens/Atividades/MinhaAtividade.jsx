@@ -1,9 +1,9 @@
-import { Link, Stack, Heading, HStack, Box, Center, Text, FlatList, SectionList, Image, Button, AspectRatio } from "native-base";
+import { Link, Stack, Heading, HStack, Box, Center, Text, FlatList, SectionList, Image, Button, AspectRatio, isEmptyObj, View } from "native-base";
 import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import test from "../../Banco/test.json"
 import { UserContext } from "../../assets/contexts/Context";
-import _ from "lodash";
+import _, { isElement, isEmpty, isLength } from "lodash";
 import {
 
   SafeAreaView,
@@ -87,10 +87,11 @@ export function MinhaAtividade() {
     <SafeAreaView bgColor="violet.26" flex={1}>
       <Box flex={1} bgColor="violet.26">
 
-        <FlatList mt={"3"} data={atividade} bgColor="violet.25" renderItem={({
+      {atividade.length>0 ? <FlatList mt={"3"} data={atividade} bgColor="violet.25" renderItem={({
           item
-        }) =>
+        }) => 
           <Box alignItems="center" mb={"2"} mt={"2"}>
+     
             <Box onTouchStart={() => { navigation.navigate('MeuDetalhe'), montaContext(item) }} maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
               borderColor: "coolGray.600",
               backgroundColor: "gray.700"
@@ -149,12 +150,14 @@ export function MinhaAtividade() {
                 </HStack>
               </Stack>
             </Box>
+           
           </Box>
 
 
         }
         />
-
+      :<View justifyContent={"center"} bgColor="violet.25" flex={1} ><Center>
+       <Text color={"blue.800"} onPress={() => navigation.navigate('Logado')} fontSize="3xl">Vazio</Text></Center></View>}
 
       </Box>
 

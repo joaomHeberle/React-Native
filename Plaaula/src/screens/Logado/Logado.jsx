@@ -14,15 +14,13 @@ function Logado({ navigation }) {
     const[nome,setNome]= React.useState("")
     const { id } = React.useContext(UserContext);
     const isFocused = useIsFocused();
-      React.useEffect(() => { 
-        async function fetchData() {
+    const [flag,setFlag] = React.useState(false)
+    const [badgeCount,setBadgeCount] = React.useState(1)
+    const contador =()=>{
+        setBadgeCount(badgeCount+1)
        
-          
-          setNome(await PegarNome(id));
-        
-        }
-        fetchData();
-      }, [id,isFocused]);
+    }
+
   
 
 
@@ -67,23 +65,55 @@ function Logado({ navigation }) {
             bg: 'emerald.600',
             title: 'Matemática'
         }];
+        React.useEffect(() => { 
+            async function fetchData() {
+               // console.log("FlatList foi renderizada!");
+              
+              setNome(await PegarNome(id));
+            
+            }
+            fetchData();
+          }, [id,isFocused]);
+        //   React.useEffect(() => { 
+          
+        //         console.log("FlatList foi renderizada!");
+        //      setBadgeCount(badgeCount+1)
+           
+         
+        //   }, [icons]);
+
         return       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
       
             <Heading style={{ textAlign: 'center' }} >Bem vindo(a) {nome.toUpperCase()}</Heading>
 
                 <FlatList flex={1} mt={"1.5"} numColumns={3} data={icons} renderItem={({
                 item
+                
             }) => {
-                return <Box>
+                return <Box >
                     <Center>
                         <IconButton onTouchStart={() => navigation.navigate('MinhaAtividade', {
                             nome: item.title
                         })} m={"9"} borderRadius="full" bg={item.bg} variant="solid" p="3"
                             icon={
                                 <Icon color="white" name={item.name} as={MaterialIcons} size="2xl" />
+                                
                             }
                         />
-                                   
+        {/* {badgeCount > 0 && (
+          <Text fontSize="sm" style={{
+            position: 'absolute',
+            right: 20,
+            top: 20,
+            borderRadius: 10,
+            width: 20,
+            height: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }} color="darkBlue.600"> 
+            {badgeCount}
+          </Text>
+        )} */}
                         <Text fontSize={"xl"}>{item.title}</Text>
                     </Center>
                 </Box>

@@ -79,16 +79,16 @@ const att = atividades._data.atividade;
 
 const link = await linkAtividades(id)
  await user.reauthenticateWithCredential(credencial).then(() => {
-  await user.delete().then(() => {
+   user.delete().then(() => {
   att.forEach(element => {
-   await DeleteAtividadeSemLink(element, id)
+    DeleteAtividadeSemLink(element, id)
   
   });
   
   link.forEach(element=>{
-    await deleteAtividadeStorage(element)
+  deleteAtividadeStorage(element)
   })
- await DeleteUsuario(id);
+  DeleteUsuario(id);
   sair({ navigation });
   navigation.navigate('Home')
     console.log("deletado")
