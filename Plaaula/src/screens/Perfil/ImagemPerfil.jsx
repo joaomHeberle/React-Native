@@ -175,9 +175,8 @@ function ImagemPerfil({ navigation }) {
                     size={"lg"} mt={"1/6"}>Mudar Foto do Perfil
                     </base.Button>
 
-                </base.Center>
 
-            </base.Box>
+      
             {uploading ?
                 (
                     <base.VStack space={2}>
@@ -185,16 +184,18 @@ function ImagemPerfil({ navigation }) {
                         <base.Text>{transferred} % Carregado</base.Text>
                     </base.VStack>)
                 :
-                (flag && <base.Center>
-                <base.Button onPress={handleImagem} rounded='md'
+                (flag &&  <base.Button onPress={handleImagem} rounded='md'
                     bg={'cadastrar.1'} width={"4/5"} fontFamily="choco" marginTop='1/6'  >
                     <base.Text>Cadastrar Imagem</base.Text>
                 </base.Button>
-                </base.Center>
+             
                 )
+                
+            
             }
 
-       
+</base.Center>
+</base.Box>
         </base.View>
     );
 }

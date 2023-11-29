@@ -192,7 +192,7 @@ export default function CadAulaImagem({ navigation }) {
 
 
                     <Image width={'32'} height={'32'} alt='foto'
-                        source={{ uri: image }} />
+                        source={{ uri: image }} resizeMode="contain"/>
 
 <Text fontSize={'2xl'}>Salvar: {isPublic ? 'Público' : 'Privado'}</Text>
       <Switch

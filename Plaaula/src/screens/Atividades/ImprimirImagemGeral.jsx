@@ -46,7 +46,7 @@ export default function ImprimirImagemGeral({ navigation, route }) {
 
 
 
-                    <base.Image alt={"foto perfil"} size={"2xl"} source={{ uri: image }} />
+                    <base.Image alt={"foto perfil"} resizeMode="contain" size={"2xl"} source={{ uri: image }} />
 
                     <base.Button onPress={imprimir} rounded='md' _text={{
                         color: "black",

@@ -27,7 +27,7 @@ export default function CadAula({ navigation }) {
     }
     return (
         <View flex={1} bgColor="violet.26">
-            <Text my={30} textAlign='center' fontSize={"3xl"}
+            <Text my={30} textAlign='center' fontSize={"4xl"}
                 fontFamily="bold">
                 Crie sua aula
 

@@ -133,7 +133,7 @@ export default function AltImagemAula({ navigation, route }) {
                     </Button>
 
 
-                    <Image width={'32'} height={'32'} alt='foto'
+                    <Image width={'32'} height={'32'} resizeMode="contain" alt='foto'
                         source={{ uri: image }} />
 
 

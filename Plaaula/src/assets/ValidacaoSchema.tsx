@@ -20,7 +20,7 @@ export const cadProfSchema = yup.object({
 
 export const altProfSchema = yup.object({
     nome: yup.string()
-        .matches(/^[a-zA-ZÀ-ú ]+$/, "Nome deve conter apenas letras")
+        .matches(/^[a-zA-ZÀ-ú]*[a-zA-ZÀ-ú][a-zA-ZÀ-ú ]*$/, "Nome deve conter apenas letras")
         .required("Digite um Nome")
         .min(2, "Nome deve ter no mínimo 2 caracteres")
         .max(30, "Nome deve ter no máximo 30 caracteres"),
@@ -58,7 +58,7 @@ export const altAulaSchema = yup.object({
    duracao: yup.string()
        .required("Escolha uma opção"),
        titulo:yup.string()
-       .matches(/^[a-zA-ZÀ-ú ]+$/, "Título deve conter apenas letras")
+       .matches(/^[a-zA-ZÀ-ú]*[a-zA-ZÀ-ú][a-zA-ZÀ-ú ]*$/, "Título deve conter apenas letras")
        .required("Digite um Título")
        .min(2, "Título deve ter no mínimo 2 caracteres")
        .max(30, "Título deve ter no máximo 30 caracteres"),
@@ -78,7 +78,7 @@ export const CadDescricaoSchema = yup.object({
        .integer("Deve ser um número inteiro")
        .typeError("Duração deve ser um número"),
        titulo:yup.string()
-       .matches(/^[a-zA-ZÀ-ú ]+$/, "Título deve conter apenas letras")
+       .matches(/^[a-zA-ZÀ-ú]*[a-zA-ZÀ-ú][a-zA-ZÀ-ú ]*$/, "Título deve conter apenas letras")
        .required("Digite um Título")
        .min(2, "Título deve ter no mínimo 2 caracteres")
        .max(30, "Título deve ter no máximo 30 caracteres"),

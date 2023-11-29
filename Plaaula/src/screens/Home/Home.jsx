@@ -54,8 +54,7 @@ export default function Home({ navigation }) {
 
         <Text my={30} textAlign='center' fontSize={"4xl"}
           fontFamily="bold">
-          Bem vindo ao Pla'pp
-
+          Bem vindo ao Plapp
         </Text>
 
         <VStack flex={1} bgColor="violet.25" w="100%">

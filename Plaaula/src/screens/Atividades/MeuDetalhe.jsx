@@ -9,14 +9,14 @@ import {
 } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
 import { AtivContext } from "../../assets/contexts/AtividadeContext";
-import { busca } from "../../Banco/Consulta";
+
 import { UserContext } from "../../assets/contexts/Context";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CadDescricaoSchema, altAulaSchema } from "../../assets/ValidacaoSchema";
+import {  altAulaSchema } from "../../assets/ValidacaoSchema";
 import { Input } from "../../Componentes/Input";
 import { TextArea } from "../../Componentes/TextArea";
 import UpdateAtividade from "../../Banco/Update";
-import DeleteAtividade, { deleteAtividadeStorage } from "../../Banco/Delete";
+import DeleteAtividade from "../../Banco/Delete";
 import GerarPDF from "../../assets/functions/GerarPDF";
 
 export default function MeuDetalhe({ navigation }) {
@@ -120,38 +120,38 @@ const togglePublication = () => {
   }
 
   const handleAtt = (dado) => {
-console.log(dado)
-    // if (dado.metodologia === undefined && dado.titulo === undefined) {
-    //   dado.metodologia = ativDado.atividade.metodologia
-    //   dado.titulo = ativDado.atividade.titulo
+// console.log(dado)
+    if (dado.metodologia === undefined && dado.titulo === undefined) {
+      dado.metodologia = ativDado.atividade.metodologia
+      dado.titulo = ativDado.atividade.titulo
 
-    // } else if (dado.titulo === undefined) {
-    //   dado.titulo = ativDado.atividade.titulo
+    } else if (dado.titulo === undefined) {
+      dado.titulo = ativDado.atividade.titulo
 
 
 
-    // } else if (dado.metodologia === undefined) {
-    //   dado.metodologia = ativDado.atividade.metodologia
+    } else if (dado.metodologia === undefined) {
+      dado.metodologia = ativDado.atividade.metodologia
 
-    // }
-    // dado.duracao = parseInt(dado.duracao)
-    // console.log(dado)
+    }
+    dado.duracao = parseInt(dado.duracao)
+    console.log(dado)
    
 
-    // UpdateAtividade(ativDado.atividade.ID,dado)
-    // ativDado.setAtividade({
-    //   titulo: dado.titulo,
-    //   ID:ativDado.atividade.ID,
-    //   isPublic: dado.isPublic,
-    //   foto: imagem,
-    //   metodologia: dado.metodologia,
-    //   componente: ativDado.atividade.componente,
-    //   ano: ativDado.atividade.ano,
-    //   objetosConhecimento: ativDado.atividade.objetosConhecimento,
-    //   habilidades: ativDado.atividade.habilidades,
-    //   criadoEm: ativDado.atividade.criadoEm,
-    //   duracao: dado.duracao
-    // })
+    UpdateAtividade(ativDado.atividade.ID,dado)
+    ativDado.setAtividade({
+      titulo: dado.titulo,
+      ID:ativDado.atividade.ID,
+      isPublic: dado.isPublic,
+      foto: imagem,
+      metodologia: dado.metodologia,
+      componente: ativDado.atividade.componente,
+      ano: ativDado.atividade.ano,
+      objetosConhecimento: ativDado.atividade.objetosConhecimento,
+      habilidades: ativDado.atividade.habilidades,
+      criadoEm: ativDado.atividade.criadoEm,
+      duracao: dado.duracao
+    })
     setShowModal(false);
 
   }
@@ -425,7 +425,7 @@ console.log(dado)
             <Divider backgroundColor={"amber.900"} />
 
             <Center>
-              {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem', { img: imagem })}><Image width={'32'} height={'32'} alt='foto' source={{ uri: imagem }} />
+              {imagem && <TouchableOpacity onPress={() => navigation.navigate('ImprimirImagem', { img: imagem })}><Image width={'32'} height={'32'} resizeMode="contain" alt='foto' source={{ uri: imagem }} />
               </TouchableOpacity>}
             </Center>
             

@@ -1,4 +1,4 @@
-import { Link, Center, VStack, Text, Button, View, Slide, Box, HStack, WarningIcon } from 'native-base';
+import { Link, Icon, Center, VStack, Text, Button, View, Slide, Box, HStack, WarningIcon, Pressable } from 'native-base';
 import React, { useEffect } from 'react';
 import { Input } from '../../Componentes/Input';
 import { cadProfSchema } from '../../assets/ValidacaoSchema'
@@ -6,10 +6,10 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CadastrarProfessor } from '../../Banco/Cadastros';
 import { MotiView } from 'moti'
-
+import { MaterialIcons } from "@expo/vector-icons";
 export default function CadProf({ navigation }) {
     const [slide, setSlide] = React.useState(false);
-
+    const [showPassword, setShowPassword] = React.useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(cadProfSchema)
     });
@@ -25,7 +25,10 @@ export default function CadProf({ navigation }) {
 
     }
 
-
+    React.useEffect(() => { 
+        console.log(showPassword)
+    
+      }, [showPassword]);
 
     return (
         <MotiView style={{ flex: 1 }}
@@ -43,7 +46,7 @@ export default function CadProf({ navigation }) {
             <View flex={1} bgColor="violet.26">
 
 
-                <Text my={30} textAlign='center' fontSize={"5xl"}
+                <Text my={30} textAlign='center' fontSize={"4xl"}
                     fontFamily="bold">
                     Crie sua conta
 
@@ -142,26 +145,31 @@ export default function CadProf({ navigation }) {
                                 duration: 3000
                             }}
                         >
-                            <Controller control={control}
-                                name="senha"
-                                render={({ field: { onChange } }) => (
+                 <Controller control={control}
+                name="senha"
+                render={({ field: { onChange } }) => (
 
 
-                                    <Input
-                                        autoCapitalize='words'
-                                        autoComplete='off'
-                                        returnKeyType='done'
-                                        title="Senha"
+                  <Input
 
-                                        paddingX="10"
-                                        onChangeText={onChange}
-                                        requerido={true}
-                                        errorMessage={errors.senha?.message}
-                                    />
+                  
+                    autoComplete='off'
+                    returnKeyType='done'
+                    title="Senha"
+                    type={showPassword?"text":"password"}
+                    paddingX="10"
+                    onChangeText={onChange}
+                    requerido={true}
+                    errorMessage={errors.senha?.message}
+                    InputRightElement={<Pressable onPress={() => {setShowPassword(!showPassword)}}>
+                    <Icon as={
+                    <MaterialIcons name={showPassword ? "visibility" : "visibility-off"} />}
+                     size={5} mr="2" color="black" />
+                  </Pressable>}  />
+                    
+                )}
 
-                                )}
-
-                            />
+              />
                         </MotiView>
 
                     </Center>

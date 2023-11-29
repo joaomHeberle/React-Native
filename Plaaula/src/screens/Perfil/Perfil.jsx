@@ -157,6 +157,7 @@ function Perfil({ navigation }) {
                       name="senha"
                       render={({ field: { onChange } }) => (
                         <Input
+                        type="password"
                           isRequired={true}
                           autoCapitalize='words'
                           autoComplete='off'

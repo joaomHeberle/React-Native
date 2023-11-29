@@ -11,12 +11,18 @@ SplashScreen.preventAutoHideAsync();
 import{ UserProvider} from './src/assets/contexts/Context'
 
 import {AtividadeProvider} from './src/assets/contexts/AtividadeContext';
+import {LogBox} from 'react-native';
+
+// LogBox.ignoreLogs(['This warning should be ignored.']);
+
+// console.warn('')
+// // console.warn('This warning should be ignored.')
+LogBox.ignoreAllLogs()
 
 
 
 export default function App({navigation}) {
-
-
+  LogBox.ignoreAllLogs()
   const [user,setUser] = useState(null);
   const [userId,setUserId]= useState(null);
   const [fontsLoaded] = useFonts({
